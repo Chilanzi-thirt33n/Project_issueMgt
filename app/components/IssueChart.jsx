@@ -1,13 +1,11 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from "recharts";
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -19,9 +17,9 @@ import {
 
 // Updated chart data with completed, active, and total issues
 const chartData = [
-  { category: "Total Issues", value: 186 },
-  { category: "Closed Issues", value: 150 },
-  { category: "Active Issues", value: 36 },
+  { category: "Total Issues", value: 50 },
+  { category: "Closed Issues", value: 45 },
+  { category: "Active Issues", value: 5 },
 ];
 
 const chartConfig = {
@@ -53,12 +51,12 @@ const IssueChart = () => {
             data={chartData}
             layout="vertical"
             margin={{
-              left: 30, // Adjusted for more space on the left
-              right: 10,
-              top: 10,
-              bottom: 80,
+              left: 50, // Increased space for larger Y-axis labels
+              right: 20,
+              top: 20,
+              bottom: 20,
             }}
-            height={300} // Reduced height for a smaller graph
+            height={150} // Increased chart height for spacing
           >
             <XAxis type="number" dataKey="value" hide />
             <YAxis
@@ -67,14 +65,15 @@ const IssueChart = () => {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
+              tick={{ fontSize: 14 }} // Increased font size of Y-axis labels
             />
             <Tooltip />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            {/* Bars for total issues, closed issues, and active issues with blue color */}
-            <Bar dataKey="value" fill="#007BFF" radius={5} />
+            {/* Adjusted bar size for reduced spacing */}
+            <Bar dataKey="value" fill="#007BFF" radius={12} barSize={80} />
           </BarChart>
         </ChartContainer>
       </CardContent>

@@ -3,12 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Navigation from "../components/Nav";
 import Copyright from "../components/CopyRight";
 
-export const metadata = {
-  title: "Issue Logger v1.0.0",
-  description: "MVP app with Next.js frontend",
-};
-
-export default function RootLayout({ children }) {
+export default function DashboardLayout({ children }) {
   // Dummy user data
   const user = {
     name: "John Doe",
@@ -27,16 +22,16 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className="w-screen bg-gray-200 h-screen">
-        <div className="grid grid-cols-[auto,1fr] w-full h-full ">
-          {/* Sidebar (Fixed Position) */}
-          <aside className="fixed left-0 top-0 w-80 h-full b p-2 z-40">
+      <body>
+        <div className="grid grid-cols-[20rem,1fr] w-screen h-screen bg-gray-200 gap-2">
+          {/* Sidebar */}
+          <aside className="h-full w-80 text-white p-2">
             <Sidebar />
           </aside>
 
           {/* Main Section */}
-          <main className="ml-80 h-full flex flex-col p-3">
-            {/* Navigation and Breadcrumbs (Fixed) */}
+          <main className="flex flex-col h-full overflow-hidden p-2">
+            {/* Navigation and Breadcrumbs */}
             <div className="sticky top-0 z-50 bg-gray-200">
               <nav className="rounded-md">
                 <Navigation data={user} />
@@ -46,13 +41,11 @@ export default function RootLayout({ children }) {
               </header>
             </div>
 
-            {/* Main Content (scrollable in Y-axis only) */}
-            <div className="flex-1 overflow-y-auto p-4 w-full flex-grow">
-              {children}
-            </div>
+            {/* Main Content */}
+            <div className="flex-1 overflow-y-auto p-4">{children}</div>
 
             {/* Footer */}
-            <footer className="p-4 text-center border-t border-gray-300 ">
+            <footer className="p-4 text-center border-t border-gray-300">
               <Copyright data={CompanyDetails} />
             </footer>
           </main>

@@ -19,10 +19,10 @@ import {
 
 // this should be updated with database data
 const chartData = [
-  { classification: "Class 1", issues: 120, fill: "#4A90E2" }, // Blue 1
-  { classification: "Class 2", issues: 90, fill: "#5DADE2" }, // Blue 2
-  { classification: "Class 3", issues: 60, fill: "#85C1E9" }, // Blue 3
-  { classification: "Class 4", issues: 30, fill: "#D4E6F1" }, // Light Blue
+  { classification: "Class 1", issues: 10, fill: "#4A90E2" }, // Blue 1
+  { classification: "Class 2", issues: 20, fill: "#5DADE2" }, // Blue 2
+  { classification: "Class 3", issues: 29, fill: "#85C1E9" }, // Blue 3
+  { classification: "Class 4", issues: 40, fill: "#D4E6F1" }, // Light Blue
 ];
 
 // Chart hex colors

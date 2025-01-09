@@ -1,6 +1,6 @@
 export default function IssueManagment() {
   return (
-    <div>
+    <div className="">
       <h1>Issue Managment</h1>
     </div>
   );

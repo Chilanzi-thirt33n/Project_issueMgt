@@ -27,16 +27,16 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className="w-screen h-screen bg-gray-200">
-        <div className="grid gap-2 grid-cols-[auto,1fr] w-full h-full p-2">
+      <body className="w-screen bg-gray-200 h-screen">
+        <div className="grid grid-cols-[auto,1fr] w-full h-full ">
           {/* Sidebar (Fixed Position) */}
-          <aside className="w-80 h-full bg-gray-200  overflow-hidden">
+          <aside className="fixed left-0 top-0 w-80 h-full b p-2 z-40">
             <Sidebar />
           </aside>
 
           {/* Main Section */}
-          <main className="flex flex-col h-full">
-            {/* Navigation and Breadcrumbs */}
+          <main className="ml-80 h-full flex flex-col p-3">
+            {/* Navigation and Breadcrumbs (Fixed) */}
             <div className="sticky top-0 z-50 bg-gray-200">
               <nav className="rounded-md">
                 <Navigation data={user} />
@@ -46,11 +46,13 @@ export default function RootLayout({ children }) {
               </header>
             </div>
 
-            {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto p-4">{children}</div>
+            {/* Main Content (scrollable in Y-axis only) */}
+            <div className="flex-1 overflow-y-auto p-4 w-full flex-grow">
+              {children}
+            </div>
 
-            {/* Footer (Scrollable along with content) */}
-            <footer className="p-4 text-center bg-gray-200 border-t border-gray-300">
+            {/* Footer */}
+            <footer className="p-4 text-center border-t border-gray-300 ">
               <Copyright data={CompanyDetails} />
             </footer>
           </main>

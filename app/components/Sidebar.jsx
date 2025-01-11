@@ -54,10 +54,13 @@ const Sidebar = () => {
         </ul>
       </div>
 
-      <button className="text-white flex flex-row gap-3 w-full py-2 justify-center items-start rounded-md bg-[#171717] hover:bg-blue-700">
+      <Link
+        href="/"
+        className="text-white flex flex-row gap-3 w-full py-2 justify-center items-start rounded-md bg-[#171717] hover:bg-blue-700"
+      >
         <FaSignOutAlt size={20} />
         <p>Sign Out</p>
-      </button>
+      </Link>
     </nav>
   );
 };

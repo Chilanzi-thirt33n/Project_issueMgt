@@ -54,11 +54,12 @@ const PieChartComponent = () => {
   }, []);
 
   return (
-    <Card className="flex flex-col w-full">
+    <Card className="flex flex-col w-full  ">
       <CardHeader className="items-center pb-0">
         <CardTitle>Issue Classification</CardTitle>
         <CardDescription>Overview of Issue Classes</CardDescription>
       </CardHeader>
+
       <CardContent className="flex-1 pb-0 justify-center items-center">
         <ChartContainer
           config={chartConfig}
@@ -110,6 +111,7 @@ const PieChartComponent = () => {
           </PieChart>
         </ChartContainer>
       </CardContent>
+
       <CardFooter className="flex-col gap-2 text-sm">
         <ul className="leading-none text-muted-foreground flex flex-row space-x-3 justify-center items-end">
           <li className="flex flex-row gap-2 justify-center items-center">

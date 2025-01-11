@@ -39,7 +39,7 @@ const chartConfig = {
 
 const IssueChart = () => {
   return (
-    <Card>
+    <Card className="w-full ">
       <CardHeader>
         <CardTitle>Issue Status Chart</CardTitle>
         <CardDescription>Completed, Active, and Total Issues</CardDescription>
@@ -51,12 +51,12 @@ const IssueChart = () => {
             data={chartData}
             layout="vertical"
             margin={{
-              left: 50, // Increased space for larger Y-axis labels
-              right: 20,
-              top: 20,
-              bottom: 20,
+              left: 70, // Increased space for larger Y-axis labels
+              right: 10,
+              top: 10,
+              bottom: 10,
             }}
-            height={150} // Increased chart height for spacing
+            height={50} // Adjusted the chart height for a more compact view
           >
             <XAxis type="number" dataKey="value" hide />
             <YAxis
@@ -73,7 +73,7 @@ const IssueChart = () => {
               content={<ChartTooltipContent hideLabel />}
             />
             {/* Adjusted bar size for reduced spacing */}
-            <Bar dataKey="value" fill="#007BFF" radius={12} barSize={80} />
+            <Bar dataKey="value" fill="#007BFF" radius={10} barSize={40} />
           </BarChart>
         </ChartContainer>
       </CardContent>

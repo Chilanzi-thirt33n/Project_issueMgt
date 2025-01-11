@@ -79,7 +79,7 @@ function AddButton() {
         className="px-8 py-2 bg-blue-500 text-white rounded-md flex flex-row gap-4 justify-center items-center font-bold text-xl hover:bg-blue-300 hover:text-gray-950"
       >
         <p>Add Issue</p>
-        <AiOutlinePlus className="bg-white text-blue-500 font-bold rounded-full p-2" />
+        <AiOutlinePlus />
       </button>
 
       {/* Overlay Form when showForm is true */}
@@ -241,7 +241,7 @@ function AddButton() {
               <div>
                 <button
                   type="submit"
-                  className="px-8 py-2 bg-green-500 text-white font-bold rounded hover:bg-blue-500"
+                  className="px-8 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-300"
                 >
                   Submit Issue
                 </button>

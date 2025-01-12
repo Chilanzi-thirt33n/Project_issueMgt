@@ -1,6 +1,7 @@
 "use client";
 
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from "recharts";
+import { useState } from "react";
 
 import {
   Card,
@@ -15,29 +16,29 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-// Updated chart data with completed, active, and total issues
-const chartData = [
-  { category: "Total Issues", value: 50 },
-  { category: "Closed Issues", value: 45 },
-  { category: "Active Issues", value: 5 },
-];
-
-const chartConfig = {
-  total: {
-    label: "Total Issues",
-    color: "hsl(var(--chart-1))",
-  },
-  closed: {
-    label: "Closed Issues",
-    color: "hsl(var(--chart-2))",
-  },
-  active: {
-    label: "Active Issues",
-    color: "hsl(var(--chart-3))",
-  },
-};
-
 const IssueChart = () => {
+  // Updated chart data with completed, active, and total issues
+  const [chartData, setChartData] = useState([
+    { category: "Total Issues", value: 50 },
+    { category: "Closed Issues", value: 45 },
+    { category: "Active Issues", value: 5 },
+  ]);
+
+  const chartConfig = {
+    total: {
+      label: "Total Issues",
+      color: "hsl(var(--chart-1))",
+    },
+    closed: {
+      label: "Closed Issues",
+      color: "hsl(var(--chart-2))",
+    },
+    active: {
+      label: "Active Issues",
+      color: "hsl(var(--chart-3))",
+    },
+  };
+
   return (
     <Card className="w-full ">
       <CardHeader>

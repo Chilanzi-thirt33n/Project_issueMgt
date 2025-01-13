@@ -10,7 +10,7 @@ function AddButton() {
   const [formData, setFormData] = useState({
     area: "",
     issue: "",
-    class: "",
+    classification: "",
     Priority: "",
     reported_by: "",
     contact_number: "",
@@ -54,7 +54,7 @@ function AddButton() {
         setFormData({
           area: "",
           issue: "",
-          class: "",
+          classification: "",
           Priority: "",
           reported_by: "",
           contact_number: "",

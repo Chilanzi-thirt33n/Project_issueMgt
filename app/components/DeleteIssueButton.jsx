@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 const DeleteIssueButton = ({ issue_id: id, onDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState(null); // To display error/success messages
 
   // Handle the delete action
   const handleDelete = async () => {
@@ -16,20 +17,32 @@ const DeleteIssueButton = ({ issue_id: id, onDelete }) => {
       if (response.ok) {
         onDelete(id); // Call the parent's delete handler
         setIsOpen(false); // Close the modal
+        setMessage("Issue deleted successfully!");
+        setTimeout(() => setMessage(null), 3000); // Clear message after 3 seconds
       } else {
-        console.error("Failed to delete issue");
+        setMessage("Failed to delete issue. Please try again.");
+        setTimeout(() => setMessage(null), 3000);
       }
     } catch (error) {
+      setMessage("An error occurred. Please try again.");
       console.error("Error deleting issue:", error);
+      setTimeout(() => setMessage(null), 3000);
     }
   };
 
   return (
     <>
+      {/* Success/Error Message */}
+      {message && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-md text-white shadow-lg bg-red-500">
+          {message}
+        </div>
+      )}
+
       {/* Button to open the confirmation modal */}
       <button
         onClick={() => setIsOpen(true)}
-        className="text-red-600 bg-white px-8 py-2 b text-xl rounded-md hover:bg-red-600 hover:text-white"
+        className=" bg-red-600 px-8 py-2 text-xl rounded-md hover:bg-gray-700 text-white"
       >
         Delete Issue
       </button>

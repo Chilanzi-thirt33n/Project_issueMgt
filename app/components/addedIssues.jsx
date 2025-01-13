@@ -25,7 +25,7 @@ const AddedIssues = () => {
         "The blaster element on the dashboard is not rendering correctly.",
       date: "2022-01-01",
       progress: 20,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Inconsistent Water Quality Sensor Data",
@@ -34,7 +34,7 @@ const AddedIssues = () => {
       comment: "Water quality sensors are providing inconsistent readings.",
       date: "2022-01-05",
       progress: 50,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Incorrect Work Order Assignments",
@@ -43,7 +43,7 @@ const AddedIssues = () => {
       comment: "Work orders are being assigned incorrectly to team members.",
       date: "2022-02-01",
       progress: 90,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "UI Layout for Work Order Page Needs Improvement",
@@ -53,7 +53,7 @@ const AddedIssues = () => {
         "The layout for the work order page is confusing, needs better structure.",
       date: "2022-02-10",
       progress: 100,
-      status: "Closed",
+      isClosed: true,
     },
     {
       name: "Issue with Dashboard Data Fetching",
@@ -62,7 +62,7 @@ const AddedIssues = () => {
       comment: "Data fetching from the backend is slow and inconsistent.",
       date: "2022-02-20",
       progress: 35,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Maintenance Tips Card Doesn't Display Correct Information",
@@ -72,7 +72,7 @@ const AddedIssues = () => {
         "The maintenance tips card on the dashboard isn't showing updated tips.",
       date: "2022-03-01",
       progress: 60,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Worker Profile Cards not Rendering Properly",
@@ -82,7 +82,7 @@ const AddedIssues = () => {
         "Worker profile cards are not displaying role and status correctly.",
       date: "2022-03-15",
       progress: 80,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Alerts and Notifications Not Triggering",
@@ -91,7 +91,7 @@ const AddedIssues = () => {
       comment: "System alerts and notifications aren't being sent as expected.",
       date: "2022-04-01",
       progress: 25,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Maintenance Dashboard Data Lag",
@@ -101,7 +101,7 @@ const AddedIssues = () => {
         "There is a lag in displaying real-time data on the maintenance dashboard.",
       date: "2022-04-05",
       progress: 30,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Slow Response on Issue Updates",
@@ -110,7 +110,7 @@ const AddedIssues = () => {
       comment: "Updates to issues are not reflected promptly on the dashboard.",
       date: "2022-04-10",
       progress: 15,
-      status: "Open",
+      isClosed: "Open",
     },
     {
       name: "Access Control for Work Orders Not Working",
@@ -120,7 +120,7 @@ const AddedIssues = () => {
         "Access control settings for work orders are not functioning as expected.",
       date: "2022-04-12",
       progress: 40,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "CCTV Integration Not Showing Feed",
@@ -130,7 +130,7 @@ const AddedIssues = () => {
         "CCTV feed for maintenance monitoring is not visible on the dashboard.",
       date: "2022-04-14",
       progress: 70,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Delayed Work Order Notifications",
@@ -139,7 +139,7 @@ const AddedIssues = () => {
       comment: "Work order notifications are delayed, leading to missed tasks.",
       date: "2022-04-16",
       progress: 10,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Work Order Search Not Filtering Results",
@@ -149,7 +149,7 @@ const AddedIssues = () => {
         "Search function for work orders is not filtering results correctly.",
       date: "2022-04-18",
       progress: 50,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "Water Quality Indicator Data Not Updating",
@@ -158,7 +158,7 @@ const AddedIssues = () => {
       comment: "Water quality indicators aren't updating as they should.",
       date: "2022-04-20",
       progress: 20,
-      status: "Open",
+      isClosed: false,
     },
     {
       name: "UI Glitches in Work Order Page",
@@ -168,7 +168,7 @@ const AddedIssues = () => {
         "There are UI glitches in the Work Order page causing confusion.",
       date: "2022-04-22",
       progress: 60,
-      status: "Open",
+      isClosed: false,
     },
   ]);
 
@@ -269,12 +269,12 @@ const AddedIssues = () => {
                   </td>
                   <td
                     className={`px-4 py-2 border-b font-semibold ${
-                      issue.status === "Open"
+                      issue.isClosed === false
                         ? "text-red-600 bg-red-100"
                         : "text-blue-600 bg-blue-100"
                     }`}
                   >
-                    {issue.status}
+                    {issue.isClosed === false ? "Open" : "Closed"}
                   </td>
                   <td className="px-4 py-2 border-b">
                     <Link

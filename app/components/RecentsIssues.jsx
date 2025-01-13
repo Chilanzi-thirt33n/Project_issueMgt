@@ -11,7 +11,7 @@ const RecentsIssues = () => {
     {
       name: "testissue",
       id: "76235",
-      status: "Open",
+      isClosed: "Open",
       assigned_to: "John Doedit",
       comment: "Needs more info",
       date: "2022-01-01",
@@ -19,7 +19,7 @@ const RecentsIssues = () => {
     {
       name: "testissue2",
       id: "74239",
-      status: "Open",
+      isClosed: false,
       assigned_to: "John Doedit",
       comment: "Needs more info",
       date: "2022-01-01",
@@ -27,7 +27,7 @@ const RecentsIssues = () => {
     {
       name: "testissue3",
       id: "76536",
-      status: "Open",
+      isClosed: false,
       assigned_to: "John Doedit",
       comment: "Needs more info",
       date: "2022-01-01",
@@ -35,7 +35,7 @@ const RecentsIssues = () => {
     {
       name: "testissue4",
       id: "75736",
-      status: "Open",
+      isClosed: true,
       assigned_to: "John Doedit",
       comment: "Needs more info",
       date: "2022-01-01",
@@ -43,7 +43,7 @@ const RecentsIssues = () => {
     {
       name: "testissue5",
       id: "74670",
-      status: "Closed",
+      isClosed: false,
       assigned_to: "John Doedit",
       comment: "Resolved",
       date: "2022-01-03",
@@ -51,7 +51,7 @@ const RecentsIssues = () => {
     {
       name: "testissue6",
       id: "76234",
-      status: "Open",
+      isClosed: true,
       assigned_to: "John Doedit",
       comment: "Needs more info",
       date: "2022-01-02",
@@ -59,7 +59,7 @@ const RecentsIssues = () => {
     {
       name: "testissue7",
       id: "76233",
-      status: "Closed",
+      isClosed: false,
       assigned_to: "John Doedit",
       comment: "Resolved",
       date: "2022-01-03",
@@ -147,12 +147,12 @@ const RecentsIssues = () => {
                 <td className="px-4 py-2 border-b">{issue.id}</td>
                 <td
                   className={`px-4 py-2 border-b font-semibold ${
-                    issue.status === "Open"
+                    issue.isClosed === false
                       ? "text-red-600 bg-red-100"
                       : "text-blue-600 bg-blue-100"
                   }`}
                 >
-                  {issue.status}
+                  {issue.isClosed === false ? "Open" : "Closed"}
                 </td>
                 <td className="px-4 py-2 border-b">{issue.assigned_to}</td>
                 <td className="px-4 py-2 border-b">{issue.comment}</td>

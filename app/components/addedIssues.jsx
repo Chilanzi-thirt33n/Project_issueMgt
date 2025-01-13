@@ -19,7 +19,7 @@ const AddedIssues = () => {
     // your issues data here
     {
       name: "Faulty Blaster in Dashboard",
-      issue_id: "76235",
+      id: "76235",
       assigned_to: "Chishimba Mwamba",
       comment:
         "The blaster element on the dashboard is not rendering correctly.",
@@ -29,7 +29,7 @@ const AddedIssues = () => {
     },
     {
       name: "Inconsistent Water Quality Sensor Data",
-      issue_id: "76236",
+      id: "76236",
       assigned_to: "Kalenga Banda",
       comment: "Water quality sensors are providing inconsistent readings.",
       date: "2022-01-05",
@@ -38,7 +38,7 @@ const AddedIssues = () => {
     },
     {
       name: "Incorrect Work Order Assignments",
-      issue_id: "76237",
+      id: "76237",
       assigned_to: "Lillian Phiri",
       comment: "Work orders are being assigned incorrectly to team members.",
       date: "2022-02-01",
@@ -47,7 +47,7 @@ const AddedIssues = () => {
     },
     {
       name: "UI Layout for Work Order Page Needs Improvement",
-      issue_id: "76238",
+      id: "76238",
       assigned_to: "Chanda Zulu",
       comment:
         "The layout for the work order page is confusing, needs better structure.",
@@ -57,7 +57,7 @@ const AddedIssues = () => {
     },
     {
       name: "Issue with Dashboard Data Fetching",
-      issue_id: "76239",
+      id: "76239",
       assigned_to: "Tawanda Mwansa",
       comment: "Data fetching from the backend is slow and inconsistent.",
       date: "2022-02-20",
@@ -66,7 +66,7 @@ const AddedIssues = () => {
     },
     {
       name: "Maintenance Tips Card Doesn't Display Correct Information",
-      issue_id: "76240",
+      id: "76240",
       assigned_to: "Patricia Mulenga",
       comment:
         "The maintenance tips card on the dashboard isn't showing updated tips.",
@@ -76,7 +76,7 @@ const AddedIssues = () => {
     },
     {
       name: "Worker Profile Cards not Rendering Properly",
-      issue_id: "76241",
+      id: "76241",
       assigned_to: "Joseph Mumba",
       comment:
         "Worker profile cards are not displaying role and status correctly.",
@@ -86,7 +86,7 @@ const AddedIssues = () => {
     },
     {
       name: "Alerts and Notifications Not Triggering",
-      issue_id: "76242",
+      id: "76242",
       assigned_to: "Sarah Kambole",
       comment: "System alerts and notifications aren't being sent as expected.",
       date: "2022-04-01",
@@ -95,7 +95,7 @@ const AddedIssues = () => {
     },
     {
       name: "Maintenance Dashboard Data Lag",
-      issue_id: "76243",
+      id: "76243",
       assigned_to: "Aaron Sikazwe",
       comment:
         "There is a lag in displaying real-time data on the maintenance dashboard.",
@@ -105,7 +105,7 @@ const AddedIssues = () => {
     },
     {
       name: "Slow Response on Issue Updates",
-      issue_id: "76244",
+      id: "76244",
       assigned_to: "Sampa Mulenga",
       comment: "Updates to issues are not reflected promptly on the dashboard.",
       date: "2022-04-10",
@@ -114,7 +114,7 @@ const AddedIssues = () => {
     },
     {
       name: "Access Control for Work Orders Not Working",
-      issue_id: "76245",
+      id: "76245",
       assigned_to: "Martin Chanda",
       comment:
         "Access control settings for work orders are not functioning as expected.",
@@ -124,7 +124,7 @@ const AddedIssues = () => {
     },
     {
       name: "CCTV Integration Not Showing Feed",
-      issue_id: "76246",
+      id: "76246",
       assigned_to: "Eunice Ndlovu",
       comment:
         "CCTV feed for maintenance monitoring is not visible on the dashboard.",
@@ -134,7 +134,7 @@ const AddedIssues = () => {
     },
     {
       name: "Delayed Work Order Notifications",
-      issue_id: "76247",
+      id: "76247",
       assigned_to: "Peter Kanyama",
       comment: "Work order notifications are delayed, leading to missed tasks.",
       date: "2022-04-16",
@@ -143,7 +143,7 @@ const AddedIssues = () => {
     },
     {
       name: "Work Order Search Not Filtering Results",
-      issue_id: "76248",
+      id: "76248",
       assigned_to: "Chisomo Lungu",
       comment:
         "Search function for work orders is not filtering results correctly.",
@@ -153,7 +153,7 @@ const AddedIssues = () => {
     },
     {
       name: "Water Quality Indicator Data Not Updating",
-      issue_id: "76249",
+      id: "76249",
       assigned_to: "Maria Chabala",
       comment: "Water quality indicators aren't updating as they should.",
       date: "2022-04-20",
@@ -162,7 +162,7 @@ const AddedIssues = () => {
     },
     {
       name: "UI Glitches in Work Order Page",
-      issue_id: "76250",
+      id: "76250",
       assigned_to: "Emmanuel Kunda",
       comment:
         "There are UI glitches in the Work Order page causing confusion.",
@@ -248,18 +248,21 @@ const AddedIssues = () => {
             ) : (
               currentIssues.map((issue) => (
                 <tr
-                  key={issue.issue_id}
+                  key={issue.id}
                   className="hover:bg-gray-100 cursor-pointer grid grid-cols-8"
                 >
                   <td className="px-4 py-2 border-b font-bold">{issue.name}</td>
-                  <td className="px-4 py-2 border-b">{issue.issue_id}</td>
+                  <td className="px-4 py-2 border-b">{issue.id}</td>
                   <td className="px-4 py-2 border-b">{issue.assigned_to}</td>
                   <td className="px-4 py-2 border-b">{issue.comment}</td>
                   <td className="px-4 py-2 border-b">{issue.date}</td>
-                  <td className="px-4 py-2 border-b">
-                    <div className="w-full bg-gray-200 rounded">
+                  <td className="px-4 py-2 border-b ">
+                    <h3 className="text-sm font-bold text-end">
+                      {issue.progress}%
+                    </h3>
+                    <div className="w-full bg-gray-200 rounded-full ">
                       <div
-                        className="h-4 bg-blue-500 rounded"
+                        className="h-6 bg-green-500 rounded-full"
                         style={{ width: `${issue.progress}%` }}
                       ></div>
                     </div>
@@ -275,7 +278,7 @@ const AddedIssues = () => {
                   </td>
                   <td className="px-4 py-2 border-b">
                     <Link
-                      href={`/issues/${issue.issue_id}`}
+                      href={`/dashboard/dynamic/${issue.id}`}
                       className="text-white hover:bg-gray-700 bg-blue-500 py-2 px-8 rounded-md"
                     >
                       View

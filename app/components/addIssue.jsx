@@ -38,7 +38,7 @@ function AddButton() {
 
     try {
       // Example API call to send the data to the server/database
-      const response = await fetch("/api/addUser", {
+      const response = await fetch("/api/addIssue", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

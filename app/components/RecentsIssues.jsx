@@ -10,7 +10,7 @@ const RecentsIssues = () => {
   const [issues, setIssues] = useState([
     {
       name: "testissue",
-      issue_id: "76235",
+      id: "76235",
       status: "Open",
       assigned_to: "John Doedit",
       comment: "Needs more info",
@@ -18,7 +18,7 @@ const RecentsIssues = () => {
     },
     {
       name: "testissue2",
-      issue_id: "74239",
+      id: "74239",
       status: "Open",
       assigned_to: "John Doedit",
       comment: "Needs more info",
@@ -26,7 +26,7 @@ const RecentsIssues = () => {
     },
     {
       name: "testissue3",
-      issue_id: "76536",
+      id: "76536",
       status: "Open",
       assigned_to: "John Doedit",
       comment: "Needs more info",
@@ -34,7 +34,7 @@ const RecentsIssues = () => {
     },
     {
       name: "testissue4",
-      issue_id: "75736",
+      id: "75736",
       status: "Open",
       assigned_to: "John Doedit",
       comment: "Needs more info",
@@ -42,7 +42,7 @@ const RecentsIssues = () => {
     },
     {
       name: "testissue5",
-      issue_id: "74670",
+      id: "74670",
       status: "Closed",
       assigned_to: "John Doedit",
       comment: "Resolved",
@@ -50,7 +50,7 @@ const RecentsIssues = () => {
     },
     {
       name: "testissue6",
-      issue_id: "76234",
+      id: "76234",
       status: "Open",
       assigned_to: "John Doedit",
       comment: "Needs more info",
@@ -58,7 +58,7 @@ const RecentsIssues = () => {
     },
     {
       name: "testissue7",
-      issue_id: "76233",
+      id: "76233",
       status: "Closed",
       assigned_to: "John Doedit",
       comment: "Resolved",
@@ -140,11 +140,11 @@ const RecentsIssues = () => {
           <tbody>
             {currentIssues.map((issue) => (
               <tr
-                key={issue.issue_id}
+                key={issue.id}
                 className="hover:bg-gray-100 cursor-pointer grid grid-cols-6"
               >
                 <td className="px-4 py-2 border-b font-bold">{issue.name}</td>
-                <td className="px-4 py-2 border-b">{issue.issue_id}</td>
+                <td className="px-4 py-2 border-b">{issue.id}</td>
                 <td
                   className={`px-4 py-2 border-b font-semibold ${
                     issue.status === "Open"

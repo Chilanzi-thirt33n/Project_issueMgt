@@ -4,6 +4,23 @@ import { useState, useEffect } from "react";
 import { use } from "react"; // Import the React.use function
 import Delete from "../../../components/DeleteIssueButton";
 import Update from "../../../components/UpdateIssueButton";
+import Specification from "../../../components/SpecificationCard";
+import { redirect } from "next/navigation";
+
+//hard coded static variables
+const classificationData = [
+  { label: "Class One", value: " Injury or incident" },
+  { label: "Class Two", value: " Plant downtime" },
+  { label: "Class Three", value: "Reduced operational performance" },
+  { label: "Class Four", value: " Reduced throughput" },
+];
+
+const priorityData = [
+  { label: "Priority One", value: "Safety and Production Stopper" },
+  { label: "Priority Two", value: "Can be fixed in 24 hrs" },
+  { label: "Priority Three", value: "Can be fixed next week " },
+  { label: "Priority Four", value: "Can be fixed during next shutdown" },
+];
 
 export default function DynamicIssuePage({ params }) {
   // Use React.use to unwrap the params object
@@ -51,7 +68,7 @@ export default function DynamicIssuePage({ params }) {
       if (response.ok) {
         alert("Issue deleted successfully!");
         // Redirect to another page, e.g., to the issues list
-        window.location.href = "/issues"; // Redirect to the issues list page
+        redirect("/dashboard/IssueManagement"); // Redirect to the issues list page
       } else {
         console.error("Error deleting issue");
       }
@@ -67,17 +84,30 @@ export default function DynamicIssuePage({ params }) {
         <Delete issue_id={id} onDelete={handleDelete} />
       </div>
       <h1>Issue Details for ID: {id}</h1>
-      {isLoading ? (
-        <div className="w-full text-center">Loading issue details...</div>
-      ) : issueData ? (
-        <div>
-          <h2>{issueData.title}</h2>
-          <p>{issueData.description}</p>
-          {/* Add more fields as needed */}
+      <div className="grid grid-cols-3 gap-4 ">
+        {isLoading ? (
+          <div className="w-full text-center col-span-2">
+            Loading issue details...
+          </div>
+        ) : issueData ? (
+          <div className="w-full text-center col-span-2"></div>
+        ) : (
+          <div className="w-full text-center col-span-2">Issue not found.</div>
+        )}
+        <div className="grid grid-cols-1 gap-2">
+          <Specification
+            items={classificationData}
+            title="Classification"
+            description="Has the Issue/Risk caused or has the potential to cause:"
+          />
+
+          <Specification
+            items={priorityData}
+            title="Priority"
+            description="meaning of each Priority level."
+          />
         </div>
-      ) : (
-        <div className="w-full text-center">Issue not found.</div>
-      )}
+      </div>
     </div>
   );
 }

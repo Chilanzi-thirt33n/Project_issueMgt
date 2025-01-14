@@ -1,3 +1,4 @@
+"use client";
 import AddIssue from "../../components/addIssue";
 import IssueActive from "../../components/addedIssues";
 import { Suspense } from "react";

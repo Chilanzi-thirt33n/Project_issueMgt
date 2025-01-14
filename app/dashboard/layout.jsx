@@ -1,14 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Crumbs from "../components/BreadCrumbs";
 import Sidebar from "../components/Sidebar";
 import Navigation from "../components/Nav";
 import Copyright from "../components/CopyRight";
-import { useState } from "react";
 
 export default function DashboardLayout({ children }) {
   // Dummy user data
-  // Initialize user state
   const [user, setUser] = useState({
     name: "Admin",
     email: "john@example.com",
@@ -24,6 +23,11 @@ export default function DashboardLayout({ children }) {
     email: "info@company.com",
     website: "https://www.techvalleyzambia.com/",
   });
+
+  // Scroll to top when page loads
+  useEffect(() => {
+    window.scrollTo(0, 0); // This will scroll the page to the top
+  }, []); // The empty array ensures it runs only once on the first render
 
   return (
     <html lang="en">

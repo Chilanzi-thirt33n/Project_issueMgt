@@ -1,6 +1,7 @@
 import CrewChart from "../../components/crewChart";
 import DepartmentChart from "../../components/departmentJobsChart";
 import { Suspense } from "react";
+import Trends from "../../components/MonthChart";
 
 export default function Reports() {
   return (
@@ -12,6 +13,7 @@ export default function Reports() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:grid-rows-2">
           <CrewChart />
           <DepartmentChart />
+          <Trends />
         </div>
       </main>
     </div>

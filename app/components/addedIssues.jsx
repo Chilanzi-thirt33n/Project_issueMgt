@@ -278,7 +278,7 @@ const AddedIssues = () => {
                   </td>
                   <td className="px-4 py-2 border-b">
                     <Link
-                      href={`/dashboard/issue/${issue.id}`}
+                      href={`/dashboard/IssueManagment/${issue.id}`}
                       className="text-white hover:bg-gray-700 bg-blue-500 py-2 px-8 rounded-md"
                     >
                       View

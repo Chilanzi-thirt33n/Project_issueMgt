@@ -1,68 +1,44 @@
-"use client"; // Ensures client-side rendering for hooks like useState and useEffect
+"use client"; // Ensures client-side rendering
 
-import { useState, useEffect, Suspense } from "react";
-import { use } from "react"; // Import the React.use function
+import { useState, useEffect, use } from "react";
+import { redirect } from "next/navigation";
 import Delete from "../../../components/DeleteIssueButton";
 import Update from "../../../components/UpdateIssueButton";
 import Specification from "../../../components/SpecificationCard";
-import { redirect } from "next/navigation";
 import Details from "../../../components/IssueDetails";
 
-//hard coded static variables
+// Static classification and priority data
 const classificationData = [
-  { label: "Class One", value: " Injury or incident" },
-  { label: "Class Two", value: " Plant downtime" },
+  { label: "Class One", value: "Injury or incident" },
+  { label: "Class Two", value: "Plant downtime" },
   { label: "Class Three", value: "Reduced operational performance" },
-  { label: "Class Four", value: " Reduced throughput" },
+  { label: "Class Four", value: "Reduced throughput" },
 ];
 
 const priorityData = [
   { label: "Priority One", value: "Safety and Production Stopper" },
   { label: "Priority Two", value: "Can be fixed in 24 hrs" },
-  { label: "Priority Three", value: "Can be fixed next week " },
+  { label: "Priority Three", value: "Can be fixed next week" },
   { label: "Priority Four", value: "Can be fixed during next shutdown" },
 ];
 
 export default function DynamicIssuePage({ params }) {
-  // Use React.use to unwrap the params object
-  const { id } = use(params); // This unwraps the params Promise
+  const { id } = use(params); // Unwrap the Promise returned by `params`
 
   const [issueData, setIssueData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Handle updated issue data
-  const handleUpdate = (updatedIssue) => {
-    setIssueData(updatedIssue); // Directly update the issueData with the updated issue
-  };
-
-  // Handle deleted issue
-  const handleDelete = async () => {
-    try {
-      const response = await fetch(`/api/issues/${id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        alert("Issue deleted successfully!");
-        // Redirect to another page, e.g., to the issues list
-        redirect("/dashboard/IssueManagement"); // Redirect to the issues list page
-      } else {
-        console.error("Error deleting issue");
-      }
-    } catch (error) {
-      console.error("Error deleting issue:", error);
-    }
-  };
-
+  // Fetch issue data when the component loads or when `id` changes
   useEffect(() => {
-    // Fetch issue data from an API or database based on issue_id
     const fetchIssueData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`/api/issues/${id}`); // Replace with your actual API route
+        const response = await fetch(`/api/issues/${id}`, {
+          cache: "no-store", // Prevent caching for dynamic updates
+        });
         if (response.ok) {
           const data = await response.json();
-          setIssueData(data); // Set the fetched issue data
+          setIssueData(data);
         } else {
           console.error("Error fetching issue data");
         }
@@ -73,10 +49,31 @@ export default function DynamicIssuePage({ params }) {
       }
     };
 
-    if (id) {
-      fetchIssueData(); // Fetch data if the issue_id is available
+    if (id) fetchIssueData(); // Fetch data if an ID is available
+  }, [id]);
+
+  // Handle update of issue data
+  const handleUpdate = (updatedIssue) => {
+    setIssueData(updatedIssue); // Update state with the updated issue data
+  };
+
+  // Handle deletion of issue data
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`/api/issues/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Issue deleted successfully!");
+        redirect("/dashboard/IssueManagement"); // Redirect after deletion
+      } else {
+        console.error("Error deleting issue");
+      }
+    } catch (error) {
+      console.error("Error deleting issue:", error);
     }
-  }, [id]); // Re-fetch data when issue_id changes
+  };
 
   return (
     <div className="w-full flex flex-col gap-2">
@@ -85,21 +82,24 @@ export default function DynamicIssuePage({ params }) {
         <Delete issue_id={id} onDelete={handleDelete} />
       </div>
       <h1 className="text-l">
-        Issue Details for ID:<b className="text-blue-600"> {id}</b>
+        Issue Details for ID: <b className="text-blue-600">{id}</b>
       </h1>
-      <div className="grid grid-cols-4 gap-4 ">
-        <Details data={issueData} />
+      <div className="grid grid-cols-4 gap-4">
+        {isLoading ? (
+          <div>Loading issue details...</div>
+        ) : (
+          <Details data={issueData} />
+        )}
         <div className="grid grid-cols-1 gap-2">
           <Specification
             items={classificationData}
             title="Classification"
             description="Has the Issue/Risk caused or has the potential to cause:"
           />
-
           <Specification
             items={priorityData}
             title="Priority"
-            description="meaning of each Priority level."
+            description="Meaning of each Priority level."
           />
         </div>
       </div>

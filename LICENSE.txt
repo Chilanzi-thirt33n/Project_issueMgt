@@ -1,0 +1,14 @@
+Proprietary License for Tech Valley Zambia 2025 issue logger Project
+-------------------------------------------------------
+
+Copyright (c) 2025 Tech Valley Zambia. All rights reserved.
+
+This software and its related documentation are the proprietary and confidential property of Tech Valley Zambia. You may not use, copy, modify, distribute, or disclose this software in any form or by any means without the express written permission of Tech Valley Zambia.
+
+You are granted a non-transferable, non-exclusive license to use this software for internal purposes only. You may not sublicense, rent, lease, or sell the software to third parties.
+
+The software is provided "as-is" without any warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall Tech Valley Zambia be liable for any direct, indirect, incidental, special, or consequential damages arising out of the use or inability to use this software.
+
+For any inquiries regarding the usage of this software, please contact Tech Valley Zambia at [insert contact information or email].
+
+This license is governed by the laws of Zambia.

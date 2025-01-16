@@ -120,13 +120,28 @@ export default function Reports() {
     description: "This is a list of open issues in the system.",
   });
   return (
-    <div className="container w-full">
-      <header></header>
+    <div>
+      <header>
+        {/* Add a header component  such ass button for download*/}
+      </header>
+      <main className="grid grid-cols-1 w-full">
+        {/* Overview Reports Section*/}
+        <div className="mt-10 space-y-3 w-full">
+          <h1 className="text-lg">Overview Reports</h1>
+          <div className="space-y-2 w-ful">
+            <Suspense fallback={<div>Loading...</div>}>
+              <History data={data} />
+            </Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
+              <History data={data1} />
+            </Suspense>
+          </div>
+        </div>
 
-      <main>
-        <section className="mt-10 space-y-3">
+        {/* Trends Reports Section*/}
+        <div className="mt-10 space-y-3 w-full">
           <h1 className="text-lg">Trends Reports</h1>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:grid-rows-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:grid-rows-2 w-full">
             <Suspense fallback={<div>Loading...</div>}>
               <CrewChart />
             </Suspense>
@@ -137,18 +152,7 @@ export default function Reports() {
               <Trends />
             </Suspense>
           </div>
-        </section>
-        <section className="mt-10 space-y-3">
-          <h1 className="text-lg">Overview Reports</h1>
-          <div className="space-y-2">
-            <Suspense fallback={<div>Loading...</div>}>
-              <History data={data} />
-            </Suspense>
-            <Suspense fallback={<div>Loading...</div>}>
-              <History data={data1} />
-            </Suspense>
-          </div>
-        </section>
+        </div>
       </main>
     </div>
   );

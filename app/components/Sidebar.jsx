@@ -19,7 +19,7 @@ const Sidebar = () => {
     <nav className="bg-black h-full rounded-xl p-4 flex flex-col justify-between ">
       <div className="space-y-4">
         <h1 className="text-xl font-bold text-white text-center">
-          ISSUE-LOGGER
+          DEFECTS-LOGGER
         </h1>
         <hr className="border-gray-700 w-full" />
         <ul className="space-y-2">

@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import Copyright from "../app/components/CopyRight";
+import Welcome from "../app/components/welcome";
 
 const CompanyDetails = {
   name: "TechValley",
@@ -26,14 +26,7 @@ export default function Home() {
       </video>
 
       {/* Content */}
-      <div className="text-center text-white z-10">
-        <h1 className="text-2xl md:text-3xl font-bold">
-          Welcome to Issue-Logger <em className="text-green-500"> (V.1.0.0)</em>
-        </h1>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
-          <Link href="/dashboard">Dashboard</Link>
-        </button>
-      </div>
+      <Welcome />
 
       {/* Fixed Copyright Section */}
       <div className="absolute bottom-0 w-full py-4 bg-black bg-opacity-60 text-center text-white">

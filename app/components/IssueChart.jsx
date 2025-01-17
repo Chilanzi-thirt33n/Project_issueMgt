@@ -52,7 +52,7 @@ const IssueChart = () => {
             data={chartData}
             layout="vertical"
             margin={{
-              left: 70, // Increased space for larger Y-axis labels
+              left: 10, // Increased space for larger Y-axis labels
               right: 10,
               top: 10,
               bottom: 10,
@@ -74,7 +74,7 @@ const IssueChart = () => {
               content={<ChartTooltipContent hideLabel />}
             />
             {/* Adjusted bar size for reduced spacing */}
-            <Bar dataKey="value" fill="#007BFF" radius={10} barSize={40} />
+            <Bar dataKey="value" fill="#007BFF" radius={25} barSize={40} />
           </BarChart>
         </ChartContainer>
       </CardContent>

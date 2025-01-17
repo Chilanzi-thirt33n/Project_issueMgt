@@ -169,11 +169,12 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
                     >
-                      <option value="20%">20%</option>
-                      <option value="40%">40%</option>
-                      <option value="60%">60%</option>
-                      <option value="80%">80%</option>
-                      <option value="100%">100%</option>
+                      <option value="0">0%</option>
+                      <option value="20">20%</option>
+                      <option value="40">40%</option>
+                      <option value="60">60%</option>
+                      <option value="80">80%</option>
+                      <option value="100">100%</option>
                     </select>
                   </div>
 

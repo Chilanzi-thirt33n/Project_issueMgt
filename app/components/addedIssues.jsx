@@ -236,7 +236,17 @@ const AddedIssues = () => {
               <th className="px-4 py-2">Issue ID</th>
               <th className="px-4 py-2">Assigned To</th>
               <th className="px-4 py-2">Comment</th>
-              <th className="px-4 py-2">Date</th>
+              <th
+                className="px-4 py-2 cursor-pointer "
+                onClick={() => handleSort("date")}
+              >
+                Date
+                {activeSortField === "date" && (
+                  <span className="ml-2 text-white">
+                    {sortOrder === "asc" ? "▲" : "▼"}
+                  </span>
+                )}
+              </th>
               <th className="px-4 py-2">Progress</th>
               <th className="px-4 py-2">Status</th>
               <th className="px-4 py-2">Actions</th>

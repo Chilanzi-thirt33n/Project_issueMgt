@@ -13,7 +13,7 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
     priority: "Low",
     reportedBy: "",
     phoneNumber: "",
-    isClosed: false,
+    status: "YTS",
   });
 
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
           priority: data.priority || "Low",
           reportedBy: data.reportedBy || "",
           phoneNumber: data.phoneNumber || "",
-          isClosed: data.isClosed || false,
+          status: data.status || "YTS",
         });
       } else {
         console.error("Failed to fetch issue data");
@@ -54,17 +54,17 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
 
   // Handle input changes
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     });
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    //add your update endpoin here
     try {
       const response = await fetch(`/api/issues/${issue_id}`, {
         method: "PUT",
@@ -128,14 +128,19 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                   {/* Assigned To */}
                   <div>
                     <label className="block text-lg mb-2">Assigned To</label>
-                    <input
-                      type="text"
+                    <select
                       name="assignedTo"
                       value={formData.assignedTo}
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
                       required
-                    />
+                    >
+                      <option value="">Select Department</option>
+                      <option value="IT">IT</option>
+                      <option value="Operations">Operations</option>
+                      <option value="HR">HR</option>
+                      <option value="Finance">Finance</option>
+                    </select>
                   </div>
 
                   {/* Classification */}
@@ -169,6 +174,21 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                       <option value="60%">60%</option>
                       <option value="80%">80%</option>
                       <option value="100%">100%</option>
+                    </select>
+                  </div>
+
+                  {/* Status */}
+                  <div>
+                    <label className="block text-lg mb-2">Status</label>
+                    <select
+                      name="status"
+                      value={formData.status}
+                      onChange={handleChange}
+                      className="px-3 py-2 border rounded w-full"
+                    >
+                      <option value="YTS">YTS</option>
+                      <option value="Ongoing">Ongoing</option>
+                      <option value="Closed">Closed</option>
                     </select>
                   </div>
 
@@ -226,19 +246,7 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                   </div>
                 </div>
 
-                {/* Mark as Closed */}
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    name="isClosed"
-                    checked={formData.isClosed}
-                    onChange={handleChange}
-                    className="mr-2 p-3"
-                  />
-                  <label className="font-medium">Mark as Closed</label>
-                </div>
-
-                {/* Submit and Cancel Buttons */}
+                {/* Submit Button */}
                 <div className="flex justify-start space-x-4">
                   <button
                     type="submit"

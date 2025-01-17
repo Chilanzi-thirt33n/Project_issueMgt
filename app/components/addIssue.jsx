@@ -9,6 +9,7 @@ function AddButton() {
   // State to hold form data
   const [formData, setFormData] = useState({
     area: "",
+    phase: "",
     issue: "",
     classification: "",
     Priority: "",
@@ -35,7 +36,6 @@ function AddButton() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       // Example API call to send the data to the server/database
       const response = await fetch("/api/addIssue", {
@@ -53,6 +53,7 @@ function AddButton() {
         alert("Data added successfully!");
         setFormData({
           area: "",
+          phase: "",
           issue: "",
           classification: "",
           Priority: "",
@@ -61,7 +62,7 @@ function AddButton() {
           assigned_to: "",
           comment: "",
         });
-        setShowForm(false); // Hide form after successful submission
+        setShowForm(false);
       } else {
         alert("Error adding data!");
       }
@@ -103,17 +104,40 @@ function AddButton() {
                   <label htmlFor="area" className="block text-lg mb-2">
                     Area:
                   </label>
-                  <input
-                    type="text"
+                  <select
                     id="area"
                     name="area"
                     value={formData.area}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
-                    placeholder="Enter area"
                     required
-                  />
+                  >
+                    <option value="">Select Area</option>
+                    <option value="Area 1">Area 1</option>
+                    <option value="Area 2">Area 2</option>
+                    <option value="Area 3">Area 3</option>
+                  </select>
                 </div>
+
+                <div>
+                  <label htmlFor="phase" className="block text-lg mb-2">
+                    Phase:
+                  </label>
+                  <select
+                    id="phase"
+                    name="phase"
+                    value={formData.phase}
+                    onChange={handleChange}
+                    className="px-3 py-2 border rounded w-full"
+                    required
+                  >
+                    <option value="">Select Phase</option>
+                    <option value="Phase 1">Phase 1</option>
+                    <option value="Phase 2">Phase 2</option>
+                    <option value="Phase 3">Phase 3</option>
+                  </select>
+                </div>
+
                 <div>
                   <label htmlFor="issue" className="block text-lg mb-2">
                     Issue:
@@ -130,26 +154,29 @@ function AddButton() {
                   />
                 </div>
 
-                {/* Right Column Inputs */}
                 <div>
-                  <label htmlFor="class" className="block text-lg mb-2">
-                    Class:
+                  <label
+                    htmlFor="classification"
+                    className="block text-lg mb-2"
+                  >
+                    Classification:
                   </label>
                   <select
-                    id="class"
-                    name="class"
-                    value={formData.class}
+                    id="classification"
+                    name="classification"
+                    value={formData.classification}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
                     required
                   >
-                    <option value="">Select Class</option>
+                    <option value="">Select Classification</option>
                     <option value="Class 1">Classification 1</option>
                     <option value="Class 2">Classification 2</option>
                     <option value="Class 3">Classification 3</option>
                     <option value="Class 4">Classification 4</option>
                   </select>
                 </div>
+
                 <div>
                   <label htmlFor="Priority" className="block text-lg mb-2">
                     Priority:
@@ -170,7 +197,6 @@ function AddButton() {
                   </select>
                 </div>
 
-                {/* Left Column Inputs */}
                 <div>
                   <label htmlFor="reported_by" className="block text-lg mb-2">
                     Reported By:
@@ -182,10 +208,11 @@ function AddButton() {
                     value={formData.reported_by}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
-                    placeholder="Enter reported by"
+                    placeholder="Enter reporter's name"
                     required
                   />
                 </div>
+
                 <div>
                   <label
                     htmlFor="contact_number"
@@ -205,22 +232,26 @@ function AddButton() {
                   />
                 </div>
 
-                {/* Right Column Inputs */}
                 <div>
                   <label htmlFor="assigned_to" className="block text-lg mb-2">
                     Assigned To:
                   </label>
-                  <input
-                    type="text"
+                  <select
                     id="assigned_to"
                     name="assigned_to"
                     value={formData.assigned_to}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
-                    placeholder="Assigned to"
                     required
-                  />
+                  >
+                    <option value="">Select Department</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Customer Service">Customer Service</option>
+                  </select>
                 </div>
+
                 <div>
                   <label htmlFor="comment" className="block text-lg mb-2">
                     Comment:
@@ -237,7 +268,6 @@ function AddButton() {
                 </div>
               </div>
 
-              {/* Submit Button */}
               <div>
                 <button
                   type="submit"

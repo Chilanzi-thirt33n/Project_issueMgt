@@ -19,19 +19,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const IssueDetails = ({ data }) => {
   // Fallback values for the data
   const {
-    area = "Not Available",
-    issue = "No Issue Reported",
-    classification = "class 1",
-    Priority = "priority 2 ",
-    reported_by = "Unknown",
-    contact_number = "Not Provided",
-    assigned_to = "Unassigned",
+    area = "N/A ",
+    issue = "N/A ",
+    classification = "N/A ",
+    Priority = "N/A ",
+    reported_by = "N/A ",
+    contact_number = "N/A ",
+    assigned_to = "N/A ",
     comment = "No comments provided",
-    isClosed = false, // Default value is false (open)
+    phase = "N/A ",
     created_at = "N/A",
     updated_at = "N/A",
-    closed_at = "N/A",
-    progress = 20,
+    status = "N/A",
+    progress = 0,
   } = data || {}; // Use empty object fallback in case data is undefined or null
 
   return (
@@ -69,7 +69,9 @@ const IssueDetails = ({ data }) => {
             <FaMapMarkerAlt size={20} />
             <span>
               <h3 className="font-bold">location</h3>
-              <p>{area}</p>
+              <p>
+                {area} | {phase}
+              </p>
             </span>
           </li>
           <li className="flex items-center gap-4 p-3 hover:bg-blue-100 rounded-lg transition-all">
@@ -113,16 +115,7 @@ const IssueDetails = ({ data }) => {
             <FaCheckCircle size={20} />
             <span>
               <h3 className="font-bold">Status</h3>
-              <p>{isClosed ? "Closed" : "Open"}</p>{" "}
-              {/* Conditional rendering based on isClosed */}
-            </span>
-          </li>
-          <li className="flex items-center gap-4 p-3 hover:bg-blue-100 rounded-lg transition-all">
-            <FaCalendarAlt size={20} />
-            <span>
-              <h3 className="font-bold">Closed At</h3>
-              <p>{isClosed ? closed_at : "N/A"}</p>{" "}
-              {/* Only show closed_at if issue is closed */}
+              <p>{status}</p>
             </span>
           </li>
         </ul>

@@ -9,62 +9,63 @@ const issuesPerPage = 5;
 const RecentsIssues = () => {
   const [issues, setIssues] = useState([
     {
-      name: "testissue",
+      name: "Conveyor Belt Tear - Line 03 5567-BELT-CV03",
       id: "76235",
-      isClosed: "Open",
-      assigned_to: "John Doedit",
-      comment: "Needs more info",
+      status: "YTS",
+      assigned_to: "Maintenance",
+      comment: "The belt has a major tear near the loading zone.",
       date: "2022-01-01",
     },
     {
-      name: "testissue2",
+      name: "Drill Head Overheating - Unit 4782-DRL-HD02",
       id: "74239",
-      isClosed: false,
-      assigned_to: "John Doedit",
-      comment: "Needs more info",
+      status: "closed",
+      assigned_to: "Drilling",
+      comment: "Drill head overheating during operations. Resolved.",
       date: "2022-01-01",
     },
     {
-      name: "testissue3",
+      name: "Hydraulic Leak - Excavator 8821-HYD-EX01",
       id: "76536",
-      isClosed: false,
-      assigned_to: "John Doedit",
-      comment: "Needs more info",
+      status: "ongoing",
+      assigned_to: "Hydraulics",
+      comment: "Hydraulic fluid leaking from the main cylinder.",
       date: "2022-01-01",
     },
     {
-      name: "testissue4",
+      name: "Control Panel Fault - Crusher 2234-CTRL-CS01",
       id: "75736",
-      isClosed: true,
-      assigned_to: "John Doedit",
-      comment: "Needs more info",
+      status: "YTS",
+      assigned_to: "Electrical",
+      comment: "Crusher control panel unresponsive.",
       date: "2022-01-01",
     },
     {
-      name: "testissue5",
+      name: "Sensor Failure - Loader 6651-SENS-LD02",
       id: "74670",
-      isClosed: false,
-      assigned_to: "John Doedit",
-      comment: "Resolved",
+      status: "YTS",
+      assigned_to: "Sensors",
+      comment: "Proximity sensor not detecting objects.",
       date: "2022-01-03",
     },
     {
-      name: "testissue6",
+      name: "Track Misalignment - Dozer 8822-TRCK-DZ01",
       id: "76234",
-      isClosed: true,
-      assigned_to: "John Doedit",
-      comment: "Needs more info",
+      status: "YTS",
+      assigned_to: "Maintenance",
+      comment: "Tracks are misaligned, affecting movement.",
       date: "2022-01-02",
     },
     {
-      name: "testissue7",
+      name: "Cabin Display Error - Haul Truck 3321-DISP-HT01",
       id: "76233",
-      isClosed: false,
-      assigned_to: "John Doedit",
-      comment: "Resolved",
+      status: "ongoing",
+      assigned_to: "Electrical",
+      comment: "Cabin display showing incorrect readings.",
       date: "2022-01-03",
     },
   ]);
+
   // this is sorting and pagination logic
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -147,12 +148,18 @@ const RecentsIssues = () => {
                 <td className="px-4 py-2 border-b">{issue.id}</td>
                 <td
                   className={`px-4 py-2 border-b font-semibold ${
-                    issue.isClosed === false
-                      ? "text-red-600 bg-red-100"
-                      : "text-blue-600 bg-blue-100"
+                    issue.status === "YTS"
+                      ? "text-blue-800 bg-blue-200"
+                      : issue.status === "ongoing"
+                        ? "text-green-800 bg-green-200"
+                        : "text-gray-700 bg-gray-300"
                   }`}
                 >
-                  {issue.isClosed === false ? "Open" : "Closed"}
+                  {issue.status === "YTS"
+                    ? "Yet to Start"
+                    : issue.status === "ongoing"
+                      ? "Ongoing"
+                      : "Closed"}
                 </td>
                 <td className="px-4 py-2 border-b">{issue.assigned_to}</td>
                 <td className="px-4 py-2 border-b">{issue.comment}</td>

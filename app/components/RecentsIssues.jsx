@@ -162,12 +162,7 @@ const RecentsIssues = () => {
                   className="hover:bg-gray-100 cursor-pointer grid grid-cols-7"
                 >
                   <td className="px-4 py-2 border-b font-bold text-sm">
-                    <Link
-                      href={`/dashboard/IssueManagment/${issue.id}`}
-                      className="hover:underline"
-                    >
-                      {issue.issue_name}
-                    </Link>
+                    {issue.issue_name}
                   </td>
                   <td className="px-4 py-2 border-b">{issue.id}</td>
                   <td

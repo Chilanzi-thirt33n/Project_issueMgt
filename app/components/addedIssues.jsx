@@ -1,45 +1,40 @@
-"use client";
-
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
 // import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
+import Link from "next/link";
 
-// Pagination logic
 const issuesPerPage = 6;
 
 const AddedIssues = () => {
-  // initial data this will be changed to empty after presentation but update it to fetch that will com after this
   const [issues, setIssues] = useState([]);
+  const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [activeSortField, setActiveSortField] = useState("");
 
+  // Fetch issues from Supabase
   //this is what you should comment out to put tech valleys end point
   /*
-  const fetchIssuesFromAPI = async () => {
-    try {
-      // Replace with your Supabase API endpoint and authorization key
-      const response = await axios.get("https://your-supabase-api-endpoint/issues", {
-        headers: {
-          apiKey: "your-supabase-api-key", // Replace with your Supabase API key
-          Authorization: `Bearer your-supabase-auth-token`, // Replace with your Bearer token if needed
-        },
-      });
+    const fetchIssuesFromAPI = async () => {
+      try {
+        // Replace with your Supabase API endpoint and authorization key
+        const response = await axios.get("https://your-supabase-api-endpoint/issues", {
+          headers: {
+            apiKey: "your-supabase-api-key", // Replace with your Supabase API key
+            Authorization: `Bearer your-supabase-auth-token`, // Replace with your Bearer token if needed
+          },
+        });
 
-      const data = response.data;
-      console.log("Fetched Data:", data); // Log fetched data for verification
-      setIssues(data); // Update the `issues` state with the fetched data
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setError(error.message); // Set error message
-    }
-  };
-  */
+        const data = response.data;
+        console.log("Fetched Data:", data); // Log fetched data for verification
+        setIssues(data); // Update the `issues` state with the fetched data
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError(error.message); // Set error message
+      }
+    };
+    */
 
   //this is for my supabase comment this section when you link to tech vally db
   const fetchIssuesFromAPI = async () => {
@@ -67,17 +62,45 @@ const AddedIssues = () => {
     // Set up an interval to fetch data every 10 seconds
     const intervalId = setInterval(() => {
       fetchIssuesFromAPI();
-    }, 2000); // 2 seconds interval
+    }, 10000); // 2 seconds interval
 
     // Cleanup interval when the component is unmounted
     return () => clearInterval(intervalId);
   }, []);
 
-  // Pagination logic
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [activeSortField, setActiveSortField] = useState("");
+  // Sort function
+  const handleSort = (field) => {
+    const sortedIssues = [...issues].sort((a, b) => {
+      if (field === "date") {
+        // Handle sorting by date, as before
+        return sortOrder === "asc"
+          ? new Date(a.created_at) - new Date(b.created_at)
+          : new Date(b.created_at) - new Date(a.created_at);
+      } else if (field === "name") {
+        // Ensure the issue.name is being accessed properly
+        const nameA = a.issue || ""; // Access 'issue.issue' field for name
+        const nameB = b.issue || ""; // Access 'issue.issue' field for name
+        return sortOrder === "asc"
+          ? nameA.localeCompare(nameB)
+          : nameB.localeCompare(nameA);
+      } else {
+        // Handle other fields that are not "date" or "name"
+        const valueA = a[field] || ""; // Fallback to "" in case of null or undefined
+        const valueB = b[field] || ""; // Fallback to "" in case of null or undefined
+        return sortOrder === "asc"
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      }
+    });
 
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    setActiveSortField(field);
+    setIssues(sortedIssues); // Update the sorted issues
+  };
+
+  const startIndex = (currentPage - 1) * issuesPerPage;
+  const endIndex = startIndex + issuesPerPage;
+  const currentIssues = issues.slice(startIndex, endIndex);
   const totalPages = Math.ceil(issues.length / issuesPerPage);
 
   const handlePageChange = (newPage) => {
@@ -85,30 +108,6 @@ const AddedIssues = () => {
       setCurrentPage(newPage);
     }
   };
-
-  const handleSort = (field) => {
-    const sortedIssues = [...issues].sort((a, b) => {
-      if (field === "date") {
-        return sortOrder === "asc"
-          ? new Date(a.date) - new Date(b.date)
-          : new Date(b.date) - new Date(a.date);
-      } else {
-        return sortOrder === "asc"
-          ? a[field].localeCompare(b[field])
-          : b[field].localeCompare(a[field]);
-      }
-    });
-
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    setActiveSortField(field);
-
-    // Update the state with the sorted data
-    setIssues(sortedIssues);
-  };
-
-  const startIndex = (currentPage - 1) * issuesPerPage;
-  const endIndex = startIndex + issuesPerPage;
-  const currentIssues = issues.slice(startIndex, endIndex);
 
   return (
     <div className="w-full h-full">

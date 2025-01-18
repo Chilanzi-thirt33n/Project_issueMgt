@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
-// import axios from "axios"; // this is axio for end points
+// import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
 
 function AddButton() {
   // State to toggle form visibility
@@ -35,8 +35,9 @@ function AddButton() {
     setShowForm((prev) => !prev);
   };
 
-  // uncomment this to test you end point and makesure you comment out my supabase
-  /* const handleSubmit = async (e) => {
+  // uncomment this to test your end point and make sure you comment out my supabase
+  /*
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -80,9 +81,10 @@ function AddButton() {
       console.error("Error:", error);
       setError(error.message); // Set error message
     }
-    }; */
+    };
+    */
 
-  // Handle form submission
+  // Handle form submission this my supapbase comment this section when you link to tech valleys db
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

@@ -9,174 +9,68 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
+// import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
 
 // Pagination logic
 const issuesPerPage = 6;
 
 const AddedIssues = () => {
   // initial data this will be changed to empty after presentation but update it to fetch that will com after this
-  const [issues, setIssues] = useState([
-    {
-      issue: "Conveyor Belt Tear - Line 03 5567-BELT-CV03",
-      id: "76235",
-      assigned_to: "Maintenance", // Changed to department
-      comment: "The belt has a major tear near the loading zone.",
-      date: "2022-01-01",
-      progress: 20,
-      status: "YTS",
-    },
-    {
-      issue: "Drill Head Overheating - Unit 4782-DRL-HD02",
-      id: "76236",
-      assigned_to: "Drilling", // Changed to department
-      comment: "Drill head is overheating during operation.",
-      date: "2022-01-05",
-      progress: 50,
-      status: "ongoing",
-    },
-    {
-      issue: "Hydraulic Leak - Excavator 8821-HYD-EX01",
-      id: "76237",
-      assigned_to: "Hydraulics", // Changed to department
-      comment: "Hydraulic fluid leaking from main cylinder.",
-      date: "2022-02-01",
-      progress: 90,
-      status: "YTS",
-    },
-    {
-      issue: "Control Panel Fault - Crusher 2234-CTRL-CS01",
-      id: "76238",
-      assigned_to: "Electrical", // Changed to department
-      comment: "Crusher control panel unresponsive.",
-      date: "2022-02-10",
-      progress: 100,
-      status: "closed",
-    },
-    {
-      issue: "Sensor Failure - Loader 6651-SENS-LD02",
-      id: "76239",
-      assigned_to: "Sensors", // Changed to department
-      comment: "Proximity sensor not detecting objects.",
-      date: "2022-02-20",
-      progress: 35,
-      status: "YTS",
-    },
-    {
-      issue: "Track Misalignment - Dozer 8822-TRCK-DZ01",
-      id: "76240",
-      assigned_to: "Maintenance", // Changed to department
-      comment: "Tracks are misaligned, affecting movement.",
-      date: "2022-03-01",
-      progress: 60,
-      status: "ongoing",
-    },
-    {
-      issue: "Cabin Display Error - Haul Truck 3321-DISP-HT01",
-      id: "76241",
-      assigned_to: "Electrical", // Changed to department
-      comment: "Cabin display showing incorrect readings.",
-      date: "2022-03-15",
-      progress: 80,
-      status: "ongoing",
-    },
-    {
-      issue: "Air Compressor Failure - Drill 5563-COMP-DR03",
-      id: "76242",
-      assigned_to: "Drilling", // Changed to department
-      comment: "Air compressor not generating enough pressure.",
-      date: "2022-04-01",
-      progress: 25,
-      status: "YTS",
-    },
-    {
-      issue: "Engine Lag - Dump Truck 7742-ENG-DT02",
-      id: "76243",
-      assigned_to: "Engines", // Changed to department
-      comment: "Engine response delayed during acceleration.",
-      date: "2022-04-05",
-      progress: 30,
-      status: "YTS",
-    },
-    {
-      issue: "Brake System Fault - Grader 6654-BRK-GR02",
-      id: "76244",
-      assigned_to: "Brakes", // Changed to department
-      comment: "Brakes not engaging properly on slopes.",
-      date: "2022-04-10",
-      progress: 15,
-      status: "YTS",
-    },
-    {
-      issue: "Electrical Short - Shovel 4432-ELC-SH01",
-      id: "76245",
-      assigned_to: "Electrical", // Changed to department
-      comment: "Electrical short causing operational issues.",
-      date: "2022-04-12",
-      progress: 40,
-      status: "YTS",
-    },
-    {
-      issue: "Bucket Damage - Loader 2231-BCK-LD01",
-      id: "76246",
-      assigned_to: "Maintenance", // Changed to department
-      comment: "Bucket edges worn out, needs repair.",
-      date: "2022-04-14",
-      progress: 70,
-      status: "ongoing",
-    },
-    {
-      issue: "Overheating - Generator 8812-OVHT-GN01",
-      id: "76247",
-      assigned_to: "Engines", // Changed to department
-      comment: "Generator overheating under load.",
-      date: "2022-04-16",
-      progress: 10,
-      status: "YTS",
-    },
-    {
-      issue: "Alignment Issue - Conveyor 3344-ALIGN-CV02",
-      id: "76248",
-      assigned_to: "Maintenance", // Changed to department
-      comment: "Belt misaligned causing material spillage.",
-      date: "2022-04-18",
-      progress: 50,
-      status: "ongoing",
-    },
-    {
-      issue: "Pump Malfunction - Dewatering Unit 4493-PMP-DW01",
-      id: "76249",
-      assigned_to: "Pumps", // Changed to department
-      comment: "Pump not operating at full capacity.",
-      date: "2022-04-20",
-      progress: 20,
-      status: "YTS",
-    },
-    {
-      issue: "Gearbox Noise - Drill Rig 6654-GBOX-DR02",
-      id: "76250",
-      assigned_to: "Drilling", // Changed to department
-      comment: "Unusual noise from gearbox during operation.",
-      date: "2022-04-22",
-      progress: 60,
-      status: "ongoing",
-    },
-  ]);
-  //this is the fetch function should follow the above the layout of the object
+  const [issues, setIssues] = useState([]);
+
+  //this is what you should comment out to put tech valleys end point
+  /*
   const fetchIssuesFromAPI = async () => {
     try {
-      const response = await fetch("https://your-api-endpoint.com/issues"); //place you end poimt url here
-      if (!response.ok) {
-        throw new Error("Failed to fetch issues");
-      }
-      const data = await response.json();
-      setIssues(data); // Assuming the API returns issues in the same structure
+      // Replace with your Supabase API endpoint and authorization key
+      const response = await axios.get("https://your-supabase-api-endpoint/issues", {
+        headers: {
+          apiKey: "your-supabase-api-key", // Replace with your Supabase API key
+          Authorization: `Bearer your-supabase-auth-token`, // Replace with your Bearer token if needed
+        },
+      });
+
+      const data = response.data;
+      console.log("Fetched Data:", data); // Log fetched data for verification
+      setIssues(data); // Update the `issues` state with the fetched data
     } catch (error) {
-      console.error("Error fetching issues:", error);
+      console.error("Error fetching data:", error);
+      setError(error.message); // Set error message
     }
   };
-  // this is so that it retrievs data immediatly the component is mounted
+  */
+
+  //this is for my supabase comment this section when you link to tech vally db
+  const fetchIssuesFromAPI = async () => {
+    try {
+      // Fetch data from Supabase
+      const { data, error } = await supabase
+        .from("issues") // Replace 'issues' with your table name
+        .select("*"); // Fetch all columns (you can customize columns if needed)
+
+      if (error) throw error;
+
+      console.log("Fetched Data:", data); // Log fetched data for verification
+      setIssues(data); // Update the `issues` state with the fetched data
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError(error.message); // Set error message
+    }
+  };
+
+  // Fetch data immediately and set up periodic fetching
   useEffect(() => {
+    // Fetch data immediately
     fetchIssuesFromAPI();
+
+    // Set up an interval to fetch data every 10 seconds
+    const intervalId = setInterval(() => {
+      fetchIssuesFromAPI();
+    }, 2000); // 2 seconds interval
+
+    // Cleanup interval when the component is unmounted
+    return () => clearInterval(intervalId);
   }, []);
 
   // Pagination logic
@@ -268,15 +162,21 @@ const AddedIssues = () => {
                   key={issue.id}
                   className="hover:bg-gray-100 cursor-pointer grid grid-cols-8"
                 >
-                  <td className="px-4 py-2 border-b font-bold">
+                  <td className="px-4 py-2 border-b font-bold text-sm">
                     {issue.issue}
                   </td>
-                  <td className="px-4 py-2 border-b">{issue.id}</td>
-                  <td className="px-4 py-2 border-b">{issue.assigned_to}</td>
-                  <td className="px-4 py-2 border-b">{issue.comment}</td>
-                  <td className="px-4 py-2 border-b">{issue.date}</td>
-                  <td className="px-4 py-2 border-b ">
-                    <h3 className="text-sm font-bold text-end">
+                  <td className="px-4 py-2 border-b text-sm">{issue.id}</td>
+                  <td className="px-4 py-2 border-b text-sm">
+                    {issue.assigned_to}
+                  </td>
+                  <td className="px-4 py-2 border-b text-sm">
+                    {issue.comment}
+                  </td>
+                  <td className="px-4 py-2 border-b text-sm">
+                    {issue.created_at}
+                  </td>
+                  <td className="px-4 py-2 border-b text-sm">
+                    <h3 className="text-sm font-bold text-end text-sm">
                       {issue.progress}%
                     </h3>
                     <div className="w-full bg-gray-200 rounded-full ">
@@ -287,7 +187,7 @@ const AddedIssues = () => {
                     </div>
                   </td>
                   <td
-                    className={`px-4 py-2 border-b font-semibold ${
+                    className={`px-4 py-2 border-b font-semibold text-sm ${
                       issue.status === "YTS"
                         ? "text-blue-800 bg-blue-200"
                         : issue.status === "ongoing"
@@ -301,7 +201,7 @@ const AddedIssues = () => {
                         ? "Ongoing"
                         : "Closed"}
                   </td>
-                  <td className="px-4 py-2 border-b">
+                  <td className="px-4 py-2 border-b text-sm">
                     <Link
                       href={`/dashboard/IssueManagment/${issue.id}`}
                       className="text-white hover:bg-gray-700 bg-blue-500 py-2 px-8 rounded-md"

@@ -17,7 +17,7 @@ const AddedIssues = () => {
   // initial data this will be changed to empty after presentation but update it to fetch that will com after this
   const [issues, setIssues] = useState([
     {
-      name: "Conveyor Belt Tear - Line 03 5567-BELT-CV03",
+      issue: "Conveyor Belt Tear - Line 03 5567-BELT-CV03",
       id: "76235",
       assigned_to: "Maintenance", // Changed to department
       comment: "The belt has a major tear near the loading zone.",
@@ -26,7 +26,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Drill Head Overheating - Unit 4782-DRL-HD02",
+      issue: "Drill Head Overheating - Unit 4782-DRL-HD02",
       id: "76236",
       assigned_to: "Drilling", // Changed to department
       comment: "Drill head is overheating during operation.",
@@ -35,7 +35,7 @@ const AddedIssues = () => {
       status: "ongoing",
     },
     {
-      name: "Hydraulic Leak - Excavator 8821-HYD-EX01",
+      issue: "Hydraulic Leak - Excavator 8821-HYD-EX01",
       id: "76237",
       assigned_to: "Hydraulics", // Changed to department
       comment: "Hydraulic fluid leaking from main cylinder.",
@@ -44,7 +44,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Control Panel Fault - Crusher 2234-CTRL-CS01",
+      issue: "Control Panel Fault - Crusher 2234-CTRL-CS01",
       id: "76238",
       assigned_to: "Electrical", // Changed to department
       comment: "Crusher control panel unresponsive.",
@@ -53,7 +53,7 @@ const AddedIssues = () => {
       status: "closed",
     },
     {
-      name: "Sensor Failure - Loader 6651-SENS-LD02",
+      issue: "Sensor Failure - Loader 6651-SENS-LD02",
       id: "76239",
       assigned_to: "Sensors", // Changed to department
       comment: "Proximity sensor not detecting objects.",
@@ -62,7 +62,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Track Misalignment - Dozer 8822-TRCK-DZ01",
+      issue: "Track Misalignment - Dozer 8822-TRCK-DZ01",
       id: "76240",
       assigned_to: "Maintenance", // Changed to department
       comment: "Tracks are misaligned, affecting movement.",
@@ -71,7 +71,7 @@ const AddedIssues = () => {
       status: "ongoing",
     },
     {
-      name: "Cabin Display Error - Haul Truck 3321-DISP-HT01",
+      issue: "Cabin Display Error - Haul Truck 3321-DISP-HT01",
       id: "76241",
       assigned_to: "Electrical", // Changed to department
       comment: "Cabin display showing incorrect readings.",
@@ -80,7 +80,7 @@ const AddedIssues = () => {
       status: "ongoing",
     },
     {
-      name: "Air Compressor Failure - Drill 5563-COMP-DR03",
+      issue: "Air Compressor Failure - Drill 5563-COMP-DR03",
       id: "76242",
       assigned_to: "Drilling", // Changed to department
       comment: "Air compressor not generating enough pressure.",
@@ -89,7 +89,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Engine Lag - Dump Truck 7742-ENG-DT02",
+      issue: "Engine Lag - Dump Truck 7742-ENG-DT02",
       id: "76243",
       assigned_to: "Engines", // Changed to department
       comment: "Engine response delayed during acceleration.",
@@ -98,7 +98,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Brake System Fault - Grader 6654-BRK-GR02",
+      issue: "Brake System Fault - Grader 6654-BRK-GR02",
       id: "76244",
       assigned_to: "Brakes", // Changed to department
       comment: "Brakes not engaging properly on slopes.",
@@ -107,7 +107,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Electrical Short - Shovel 4432-ELC-SH01",
+      issue: "Electrical Short - Shovel 4432-ELC-SH01",
       id: "76245",
       assigned_to: "Electrical", // Changed to department
       comment: "Electrical short causing operational issues.",
@@ -116,7 +116,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Bucket Damage - Loader 2231-BCK-LD01",
+      issue: "Bucket Damage - Loader 2231-BCK-LD01",
       id: "76246",
       assigned_to: "Maintenance", // Changed to department
       comment: "Bucket edges worn out, needs repair.",
@@ -125,7 +125,7 @@ const AddedIssues = () => {
       status: "ongoing",
     },
     {
-      name: "Overheating - Generator 8812-OVHT-GN01",
+      issue: "Overheating - Generator 8812-OVHT-GN01",
       id: "76247",
       assigned_to: "Engines", // Changed to department
       comment: "Generator overheating under load.",
@@ -134,7 +134,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Alignment Issue - Conveyor 3344-ALIGN-CV02",
+      issue: "Alignment Issue - Conveyor 3344-ALIGN-CV02",
       id: "76248",
       assigned_to: "Maintenance", // Changed to department
       comment: "Belt misaligned causing material spillage.",
@@ -143,7 +143,7 @@ const AddedIssues = () => {
       status: "ongoing",
     },
     {
-      name: "Pump Malfunction - Dewatering Unit 4493-PMP-DW01",
+      issue: "Pump Malfunction - Dewatering Unit 4493-PMP-DW01",
       id: "76249",
       assigned_to: "Pumps", // Changed to department
       comment: "Pump not operating at full capacity.",
@@ -152,7 +152,7 @@ const AddedIssues = () => {
       status: "YTS",
     },
     {
-      name: "Gearbox Noise - Drill Rig 6654-GBOX-DR02",
+      issue: "Gearbox Noise - Drill Rig 6654-GBOX-DR02",
       id: "76250",
       assigned_to: "Drilling", // Changed to department
       comment: "Unusual noise from gearbox during operation.",
@@ -268,7 +268,9 @@ const AddedIssues = () => {
                   key={issue.id}
                   className="hover:bg-gray-100 cursor-pointer grid grid-cols-8"
                 >
-                  <td className="px-4 py-2 border-b font-bold">{issue.name}</td>
+                  <td className="px-4 py-2 border-b font-bold">
+                    {issue.issue}
+                  </td>
                   <td className="px-4 py-2 border-b">{issue.id}</td>
                   <td className="px-4 py-2 border-b">{issue.assigned_to}</td>
                   <td className="px-4 py-2 border-b">{issue.comment}</td>

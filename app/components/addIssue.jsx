@@ -1,6 +1,7 @@
-"use client";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
+// import axios from "axios"; // this is axio for end points
 
 function AddButton() {
   // State to toggle form visibility
@@ -12,12 +13,13 @@ function AddButton() {
     phase: "",
     issue: "",
     classification: "",
-    Priority: "",
+    priority: "",
     reported_by: "",
     contact_number: "",
     assigned_to: "",
     comment: "",
   });
+  const [error, setError] = useState("");
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -33,42 +35,92 @@ function AddButton() {
     setShowForm((prev) => !prev);
   };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  // uncomment this to test you end point and makesure you comment out my supabase
+  /* const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Example API call to send the data to the server/database
-      const response = await fetch("/api/addIssue", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await axios.post(
+        "https://your-new-endpoint.com/your-api-path",
+        {
+          area: formData.area,
+          phase: formData.phase,
+          issue: formData.issue,
+          classification: formData.classification,
+          priority: formData.priority,
+          reported_by: formData.reported_by,
+          contact_number: formData.contact_number,
+          assigned_to: formData.assigned_to,
+          comment: formData.comment,
         },
-        body: JSON.stringify(formData),
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Add authentication if needed
+            "Authorization": `Bearer YOUR_API_KEY`,
+          },
+        }
+      );
 
-      const result = await response.json();
-
-      // Handle the result (e.g., display success message, reset form, etc.)
-      if (result.success) {
+      if (response.status === 200) {
         alert("Data added successfully!");
         setFormData({
           area: "",
           phase: "",
           issue: "",
           classification: "",
-          Priority: "",
+          priority: "",
           reported_by: "",
           contact_number: "",
           assigned_to: "",
           comment: "",
         });
         setShowForm(false);
-      } else {
-        alert("Error adding data!");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while submitting the data.");
+      setError(error.message); // Set error message
+    }
+    }; */
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Insert data into Supabase
+      const { data, error } = await supabase
+        .from("issues") // Replace 'issues' with your table name
+        .insert([
+          {
+            area: formData.area,
+            phase: formData.phase,
+            issue: formData.issue,
+            classification: formData.classification,
+            priority: formData.priority,
+            reported_by: formData.reported_by,
+            contact_number: formData.contact_number,
+            assigned_to: formData.assigned_to,
+            comment: formData.comment,
+          },
+        ]);
+
+      if (error) throw error;
+
+      alert("Data added successfully!");
+      setFormData({
+        area: "",
+        phase: "",
+        issue: "",
+        classification: "",
+        priority: "",
+        reported_by: "",
+        contact_number: "",
+        assigned_to: "",
+        comment: "",
+      });
+      setShowForm(false);
+    } catch (error) {
+      console.error("Error:", error);
+      setError(error.message); // Set error message
     }
   };
 
@@ -170,30 +222,30 @@ function AddButton() {
                     required
                   >
                     <option value="">Select Classification</option>
-                    <option value="Class 1">Classification 1</option>
-                    <option value="Class 2">Classification 2</option>
-                    <option value="Class 3">Classification 3</option>
-                    <option value="Class 4">Classification 4</option>
+                    <option value="class 1">Classification 1</option>
+                    <option value="class 2">Classification 2</option>
+                    <option value="class 3">Classification 3</option>
+                    <option value="class 4">Classification 4</option>
                   </select>
                 </div>
 
                 <div>
-                  <label htmlFor="Priority" className="block text-lg mb-2">
+                  <label htmlFor="priority" className="block text-lg mb-2">
                     Priority:
                   </label>
                   <select
-                    id="Priority"
-                    name="Priority"
-                    value={formData.Priority}
+                    id="priority"
+                    name="priority"
+                    value={formData.priority}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
                     required
                   >
                     <option value="">Select Priority</option>
-                    <option value="Priority 1">Priority 1</option>
-                    <option value="Priority 2">Priority 2</option>
-                    <option value="Priority 3">Priority 3</option>
-                    <option value="Priority 4">Priority 4</option>
+                    <option value="priority 1">1</option>
+                    <option value="priority 2">2</option>
+                    <option value="priority 3">3</option>
+                    <option value="priority 4">4</option>
                   </select>
                 </div>
 
@@ -208,7 +260,7 @@ function AddButton() {
                     value={formData.reported_by}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
-                    placeholder="Enter reporter's name"
+                    placeholder="Enter name"
                     required
                   />
                 </div>
@@ -218,7 +270,7 @@ function AddButton() {
                     htmlFor="contact_number"
                     className="block text-lg mb-2"
                   >
-                    Contact Number:
+                    Assigned Department Contact:
                   </label>
                   <input
                     type="text"
@@ -245,10 +297,19 @@ function AddButton() {
                     required
                   >
                     <option value="">Select Department</option>
-                    <option value="Engineering">Engineering</option>
-                    <option value="Maintenance">Maintenance</option>
-                    <option value="Operations">Operations</option>
-                    <option value="Customer Service">Customer Service</option>
+                    <option value="Electrical Department">
+                      Electrical Department
+                    </option>
+                    <option value="Mechanical Department">
+                      Mechanical Department
+                    </option>
+                    <option value="Plumbing Department">
+                      Plumbing Department
+                    </option>
+                    <option value="Maintenance Department">
+                      Maintenance Department
+                    </option>
+                    <option value="Safety Department">Safety Department</option>
                   </select>
                 </div>
 
@@ -267,6 +328,12 @@ function AddButton() {
                   />
                 </div>
               </div>
+
+              {error && (
+                <div className="text-red-600 bg-red-100 p-2 mt-4 rounded">
+                  <strong>Error:</strong> {error}
+                </div>
+              )}
 
               <div>
                 <button

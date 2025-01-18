@@ -5,14 +5,14 @@ import React, { useState, useEffect } from "react";
 const UpdateIssueButton = ({ issue_id, onUpdate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    title: "",
-    comments: "",
-    assignedTo: "",
+    issue: "",
+    comment: "",
+    assigned_to: "",
     classification: "",
     progress: "20%",
-    priority: "Low",
-    reportedBy: "",
-    phoneNumber: "",
+    priority: "priority 1",
+    reported_by: "",
+    contact_number: "",
     status: "YTS",
   });
 
@@ -26,14 +26,14 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
       if (response.ok) {
         const data = await response.json();
         setFormData({
-          title: data.title || "",
-          comments: data.comments || "",
-          assignedTo: data.assignedTo || "",
+          issue: data.issue || "",
+          comment: data.comment || "",
+          assigned_to: data.assigned_to || "",
           classification: data.classification || "",
           progress: data.progress || "20%",
           priority: data.priority || "Low",
-          reportedBy: data.reportedBy || "",
-          phoneNumber: data.phoneNumber || "",
+          reported_by: data.reported_by || "",
+          contact_number: data.contact_number || "",
           status: data.status || "YTS",
         });
       } else {
@@ -136,10 +136,21 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                       required
                     >
                       <option value="">Select Department</option>
-                      <option value="IT">IT</option>
-                      <option value="Operations">Operations</option>
-                      <option value="HR">HR</option>
-                      <option value="Finance">Finance</option>
+                      <option value="Electrical Department">
+                        Electrical Department
+                      </option>
+                      <option value="Mechanical Department">
+                        Mechanical Department
+                      </option>
+                      <option value="Plumbing Department">
+                        Plumbing Department
+                      </option>
+                      <option value="Maintenance Department">
+                        Maintenance Department
+                      </option>
+                      <option value="Safety Department">
+                        Safety Department
+                      </option>
                     </select>
                   </div>
 

@@ -22,7 +22,7 @@ const IssueDetails = ({ data }) => {
     area = "N/A ",
     issue = "N/A ",
     classification = "N/A ",
-    Priority = "N/A ",
+    priority = "N/A ",
     reported_by = "N/A ",
     contact_number = "N/A ",
     assigned_to = "N/A ",
@@ -47,7 +47,7 @@ const IssueDetails = ({ data }) => {
           <h2 className="flex w-full flex-row gap-3 justify-center items-center text-black font-black text-lg p-2">
             <FaExclamationTriangle size={20} /> Priority
           </h2>
-          <p>{Priority}</p>
+          <p>{priority}</p>
         </span>
         <span className="bg-blue-200 flex flex-col justify-center items-center rounded-md p-2 shadow-lg">
           <h2 className="flex w-full flex-row gap-3 justify-center items-center text-black font-black text-lg p-2">

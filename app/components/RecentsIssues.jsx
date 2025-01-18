@@ -52,19 +52,10 @@ const RecentsIssues = () => {
     }
   };
 
-  // Fetch data immediately and set up periodic fetching
   useEffect(() => {
     // Fetch data immediately
     fetchIssuesFromAPI();
-
-    // Set up an interval to fetch data every 10 seconds
-    const intervalId = setInterval(() => {
-      fetchIssuesFromAPI();
-    }, 30000); // 2 seconds interval
-
-    // Cleanup interval when the component is unmounted
-    return () => clearInterval(intervalId);
-  }, []);
+  }, []); // Empty dependency array means this will only run once when the component mounts will need to add web socket feature for live data
 
   // this is sorting and pagination logic
   const [currentPage, setCurrentPage] = useState(1);
@@ -149,42 +140,58 @@ const RecentsIssues = () => {
             </tr>
           </thead>
           <tbody>
-            {currentIssues.map((issue) => (
-              <tr
-                key={issue.id}
-                className="hover:bg-gray-100 cursor-pointer grid grid-cols-7"
-              >
-                <td className="px-4 py-2 border-b font-bold text-sm">
-                  {issue.issue_name}
+            {currentIssues.length === 0 ? (
+              <tr className="flex justify-center items-center text-center py-4 text-xl font-bold min-h-[300px]">
+                <td colSpan="7" className="text-center py-4 text-gray-500">
+                  No activities found.
                 </td>
-                <td className="px-4 py-2 border-b">{issue.id}</td>
-                <td
-                  className={`px-4 py-2 border-b font-semibold text-sm ${
-                    issue.status === "YTS"
-                      ? "text-blue-800 bg-blue-200"
-                      : issue.status === "ongoing"
-                        ? "text-green-800 bg-green-200"
-                        : "text-gray-700 bg-gray-300"
-                  }`}
-                >
-                  {issue.status === "YTS"
-                    ? "Yet to Start"
-                    : issue.status === "ongoing"
-                      ? "Ongoing"
-                      : "Closed"}
-                </td>
-                <td
-                  className={`px-4 py-2 border-b text-sm ${issue.activity_type === "INSERT" ? "bg-green-100 text-green-800" : issue.activity_type === "UPDATE" ? "bg-yellow-100 text-yellow-800" : "bg-gray-100 text-gray-800"}`}
-                >
-                  {issue.activity_type}
-                </td>
-                <td className="px-4 py-2 border-b text-sm">{issue.comment}</td>
-                <td className="px-4 py-2 border-b text-sm font-medium">
-                  {issue.activity_timestamp}
-                </td>
-                <td className="px-4 py-2 border-b">{issue.reported_by}</td>
               </tr>
-            ))}
+            ) : (
+              currentIssues.map((issue) => (
+                <tr
+                  key={issue.id}
+                  className="hover:bg-gray-100 cursor-pointer grid grid-cols-7"
+                >
+                  <td className="px-4 py-2 border-b font-bold text-sm">
+                    {issue.issue_name}
+                  </td>
+                  <td className="px-4 py-2 border-b">{issue.id}</td>
+                  <td
+                    className={`px-4 py-2 border-b font-semibold text-sm ${
+                      issue.status === "YTS"
+                        ? "text-blue-800 bg-blue-200"
+                        : issue.status === "Ongoing"
+                          ? "text-green-800 bg-green-200"
+                          : "text-gray-700 bg-gray-300"
+                    }`}
+                  >
+                    {issue.status === "YTS"
+                      ? "Yet to Start"
+                      : issue.status === "Ongoing"
+                        ? "Ongoing"
+                        : "Closed"}
+                  </td>
+                  <td
+                    className={`px-4 py-2 border-b text-sm ${
+                      issue.activity_type === "INSERT"
+                        ? "bg-green-100 text-green-800"
+                        : issue.activity_type === "UPDATE"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {issue.activity_type}
+                  </td>
+                  <td className="px-4 py-2 border-b text-sm">
+                    {issue.comment}
+                  </td>
+                  <td className="px-4 py-2 border-b text-sm font-medium">
+                    {issue.activity_timestamp}
+                  </td>
+                  <td className="px-4 py-2 border-b">{issue.reported_by}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
 

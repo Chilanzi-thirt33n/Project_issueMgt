@@ -54,19 +54,10 @@ const AddedIssues = () => {
     }
   };
 
-  // Fetch data immediately and set up periodic fetching
   useEffect(() => {
     // Fetch data immediately
     fetchIssuesFromAPI();
-
-    // Set up an interval to fetch data every 10 seconds
-    const intervalId = setInterval(() => {
-      fetchIssuesFromAPI();
-    }, 30000); // 2 seconds interval
-
-    // Cleanup interval when the component is unmounted
-    return () => clearInterval(intervalId);
-  }, []);
+  }, []); // Empty dependency array means this will only run once when the component mounts will need to add web socket feature for live data
 
   // Sort function
   const handleSort = (field) => {
@@ -150,7 +141,7 @@ const AddedIssues = () => {
               <tr>
                 <td
                   colSpan="8"
-                  className="flex justify-center items-center text-center py-4 text-xl font-bold min-h-[300px]"
+                  className="flex justify-center items-center text-center py-4 text-xl font-bold min-h-[300px] text-gray-500"
                 >
                   No issues available
                 </td>
@@ -175,7 +166,7 @@ const AddedIssues = () => {
                     {issue.created_at}
                   </td>
                   <td className="px-4 py-2 border-b text-sm">
-                    <h3 className="text-sm font-bold text-end text-sm">
+                    <h3 className="text-sm font-bold text-end ">
                       {issue.progress}%
                     </h3>
                     <div className="w-full bg-gray-200 rounded-full ">
@@ -189,14 +180,14 @@ const AddedIssues = () => {
                     className={`px-4 py-2 border-b font-semibold text-sm ${
                       issue.status === "YTS"
                         ? "text-blue-800 bg-blue-200"
-                        : issue.status === "ongoing"
+                        : issue.status === "Ongoing"
                           ? "text-green-800 bg-green-200"
                           : "text-gray-700 bg-gray-300"
                     }`}
                   >
                     {issue.status === "YTS"
                       ? "Yet to Start"
-                      : issue.status === "ongoing"
+                      : issue.status === "Ongoing"
                         ? "Ongoing"
                         : "Closed"}
                   </td>

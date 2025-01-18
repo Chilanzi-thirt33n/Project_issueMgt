@@ -1,32 +1,36 @@
 "use client";
 
 import React, { useState } from "react";
+import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
+// import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
 
 const DeleteIssueButton = ({ issue_id: id, onDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState(null); // To display error/success messages
 
-  // Handle the delete action
+  // Handle the delete action supabase version
   const handleDelete = async () => {
     try {
-      const response = await fetch(`/api/issues/${id}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      });
+      // Assuming you have a Supabase client instance available
+      const { data, error } = await supabase
+        .from("issues") // Replace "issues" with your table name
+        .delete()
+        .eq("id", id); // Assuming the issue ID is stored in 'id'
 
-      if (response.ok) {
+      if (error) {
+        setMessage("Failed to delete issue. Please try again.");
+        setTimeout(() => setMessage(null), 10000);
+        console.error("Error deleting issue:", error);
+      } else {
         onDelete(id); // Call the parent's delete handler
         setIsOpen(false); // Close the modal
         setMessage("Issue deleted successfully!");
-        setTimeout(() => setMessage(null), 3000); // Clear message after 3 seconds
-      } else {
-        setMessage("Failed to delete issue. Please try again.");
-        setTimeout(() => setMessage(null), 3000);
+        setTimeout(() => setMessage(null), 10000); // Clear message after 10 seconds
       }
     } catch (error) {
       setMessage("An error occurred. Please try again.");
       console.error("Error deleting issue:", error);
-      setTimeout(() => setMessage(null), 3000);
+      setTimeout(() => setMessage(null), 10000);
     }
   };
 

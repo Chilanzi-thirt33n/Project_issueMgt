@@ -224,10 +224,10 @@ function AddButton() {
                     required
                   >
                     <option value="">Select Classification</option>
-                    <option value="class 1">Classification 1</option>
-                    <option value="class 2">Classification 2</option>
-                    <option value="class 3">Classification 3</option>
-                    <option value="class 4">Classification 4</option>
+                    <option value="class 1">Class 1</option>
+                    <option value="class 2">Class 2</option>
+                    <option value="class 3">Class 3</option>
+                    <option value="class 4">Class 4</option>
                   </select>
                 </div>
 
@@ -244,10 +244,10 @@ function AddButton() {
                     required
                   >
                     <option value="">Select Priority</option>
-                    <option value="priority 1">1</option>
-                    <option value="priority 2">2</option>
-                    <option value="priority 3">3</option>
-                    <option value="priority 4">4</option>
+                    <option value="priority 1">priority 1</option>
+                    <option value="priority 2">priority 2</option>
+                    <option value="priority 3">priority 3</option>
+                    <option value="priority 4">priority 4</option>
                   </select>
                 </div>
 
@@ -315,7 +315,7 @@ function AddButton() {
                   </select>
                 </div>
 
-                <div>
+                <div className="sm:col-span-2">
                   <label htmlFor="comment" className="block text-lg mb-2">
                     Comment:
                   </label>
@@ -340,9 +340,9 @@ function AddButton() {
               <div>
                 <button
                   type="submit"
-                  className="px-8 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-300"
+                  className="px-8 py-2 bg-blue-500 text-white w-full font-bold rounded hover:bg-blue-300"
                 >
-                  Submit Issue
+                  Add issue
                 </button>
               </div>
             </form>

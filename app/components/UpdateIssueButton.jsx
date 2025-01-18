@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personal testing add we can use if we need to present
+// import axios from "axios"; // this is axios for endpoints comment it out and comment the above when you link to tech valley's db
 
 const UpdateIssueButton = ({ issue_id, onUpdate }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,29 +20,68 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
 
   const [loading, setLoading] = useState(false);
 
-  // Fetch the existing issue data when modal opens
+  // Fetch the existing issue data when modal opens axios version
+  /*
+   const fetchIssueData = async () => {
+     setLoading(true);
+     try {
+       // Fetch issue data from the API
+       const response = await axios.get(`/api/issues/${issue_id}`);
+
+       if (response.status === 200) {
+         const data = response.data; // Assuming the API returns the issue object
+         setFormData({
+           issue: data.issue || "",
+           comment: data.comment || "",
+           assigned_to: data.assigned_to || "",
+           classification: data.classification || "",
+           progress: data.progress || "20%",
+           priority: data.priority || "Low",
+           reported_by: data.reported_by || "",
+           contact_number: data.contact_number || "",
+           status: data.status || "YTS",
+         });
+       } else {
+         console.error("Failed to fetch issue data");
+       }
+     } catch (error) {
+       console.error("Error fetching issue data with Axios:", error);
+     } finally {
+       setLoading(false);
+     }
+   };
+   */
+
+  // Fetch the existing issue data when modal opens supabase version
   const fetchIssueData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/issues/${issue_id}`);
-      if (response.ok) {
-        const data = await response.json();
+      // Fetch issue data from Supabase
+      const { data, error } = await supabase
+        .from("issues") // Replace with your table name
+        .select("*")
+        .eq("id", issue_id); // Filter by issue_id
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        const issue = data[0]; // Assuming only one issue is returned
         setFormData({
-          issue: data.issue || "",
-          comment: data.comment || "",
-          assigned_to: data.assigned_to || "",
-          classification: data.classification || "",
-          progress: data.progress || "20%",
-          priority: data.priority || "Low",
-          reported_by: data.reported_by || "",
-          contact_number: data.contact_number || "",
-          status: data.status || "YTS",
+          issue: issue.issue || "",
+          comment: issue.comment || "",
+          assigned_to: issue.assigned_to || "",
+          classification: issue.classification || "",
+          progress: issue.progress || "20%",
+          priority: issue.priority || "Low",
+          reported_by: issue.reported_by || "",
+          contact_number: issue.contact_number || "",
+          status: issue.status || "YTS",
         });
       } else {
-        console.error("Failed to fetch issue data");
+        console.error("No issue data found");
       }
     } catch (error) {
-      console.error("Error fetching issue data:", error);
+      console.error("Error fetching issue data from Supabase:", error);
     } finally {
       setLoading(false);
     }
@@ -61,26 +102,80 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
     });
   };
 
-  // Handle form submission
+  // handle form submission axios version
+  /*
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    // Prepare the request data
+    const requestData = {
+      issue: formData.issue,
+      comment: formData.comment,
+      assigned_to: formData.assigned_to,
+      classification: formData.classification,
+      progress: formData.progress,
+      priority: formData.priority,
+      reported_by: formData.reported_by,
+      contact_number: formData.contact_number,
+      status: formData.status,
+    };
+
+    // Send PUT request with axios
+    const response = await axios.put(
+      `https://your-api-endpoint.com/issues/${issue_id}`, // Use your API endpoint
+      requestData
+    );
+
+    if (response.status === 200) {
+      // Trigger parent update with updated issue data
+      onUpdate(response.data);
+      setIsOpen(false); // Close the modal
+      alert("Issue updated successfully!"); // Success pop-up
+    } else {
+      console.error("Failed to update issue:", response);
+      alert("Failed to update issue!"); // Error pop-up
+    }
+  } catch (error) {
+    console.error("Error updating issue with axios:", error);
+    alert("Error updating issue!"); // Error pop-up
+  }
+};
+*/
+
+  // Handle form submission supabase version
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //add your update endpoin here
     try {
-      const response = await fetch(`/api/issues/${issue_id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      // Update issue in Supabase
+      const { data, error } = await supabase
+        .from("issues") // Table name
+        .update({
+          issue: formData.issue,
+          comment: formData.comment,
+          assigned_to: formData.assigned_to,
+          classification: formData.classification,
+          progress: formData.progress,
+          priority: formData.priority,
+          reported_by: formData.reported_by,
+          contact_number: formData.contact_number,
+          status: formData.status,
+        })
+        .eq("id", issue_id) // Filter by issue_id
+        .select(); // Explicitly return the updated data
 
-      if (response.ok) {
-        const updatedIssue = await response.json();
-        onUpdate(updatedIssue); // Trigger parent update
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        onUpdate(data[0]); // Trigger parent update with updated issue
         setIsOpen(false); // Close the modal
+        alert("Issue updated successfully!"); // Success pop-up
       } else {
-        console.error("Failed to update issue");
+        console.error("Failed to update issue: No data returned");
+        alert("Failed to update issue!"); // Error pop-up
       }
     } catch (error) {
-      console.error("Error updating issue:", error);
+      console.error("Error updating issue in Supabase:", error);
+      alert("Error updating issue!"); // Error pop-up
     }
   };
 
@@ -117,8 +212,8 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                     <label className="block text-lg mb-2">Issue Title</label>
                     <input
                       type="text"
-                      name="title"
-                      value={formData.title}
+                      name="issue"
+                      value={formData.issue}
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
                       required
@@ -129,13 +224,12 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                   <div>
                     <label className="block text-lg mb-2">Assigned To</label>
                     <select
-                      name="assignedTo"
-                      value={formData.assignedTo}
+                      name="assigned_to"
+                      value={formData.assigned_to}
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
                       required
                     >
-                      <option value="">Select Department</option>
                       <option value="Electrical Department">
                         Electrical Department
                       </option>
@@ -163,11 +257,10 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
                     >
-                      <option value="">Select Classification</option>
-                      <option value="Class 1">Classification 1</option>
-                      <option value="Class 2">Classification 2</option>
-                      <option value="Class 3">Classification 3</option>
-                      <option value="Class 4">Classification 4</option>
+                      <option value="class 1">Class 1</option>
+                      <option value="class 2">Class 2</option>
+                      <option value="class 3">Class 3</option>
+                      <option value="class 4">Class 4</option>
                     </select>
                   </div>
 
@@ -213,10 +306,11 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                       onChange={handleChange}
                       className="w-full border-gray-300 rounded-md p-2"
                     >
-                      <option value="Priority 1">Priority 1</option>
-                      <option value="Priority 2">Priority 2</option>
-                      <option value="Priority 3">Priority 3</option>
-                      <option value="Priority 4">Priority 4</option>
+                      <option value="">Select Priority</option>
+                      <option value="priority 1">priority 1</option>
+                      <option value="priority 2">priority 2</option>
+                      <option value="priority 3">priority 3</option>
+                      <option value="priority 4">priority 4</option>
                     </select>
                   </div>
 
@@ -225,8 +319,8 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                     <label className="block text-lg mb-2">Reported By</label>
                     <input
                       type="text"
-                      name="reportedBy"
-                      value={formData.reportedBy}
+                      name="reported_by"
+                      value={formData.reported_by}
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
                       required
@@ -238,8 +332,8 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                     <label className="block text-lg mb-2">Phone Number</label>
                     <input
                       type="text"
-                      name="phoneNumber"
-                      value={formData.phoneNumber}
+                      name="contact_number"
+                      value={formData.contact_number}
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
                       required
@@ -250,23 +344,21 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
                   <div className="sm:col-span-2">
                     <label className="block text-lg mb-2">Comments</label>
                     <textarea
-                      name="comments"
-                      value={formData.comments}
+                      name="comment"
+                      value={formData.comment}
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
+                      rows="4"
                     ></textarea>
                   </div>
                 </div>
 
-                {/* Submit Button */}
-                <div className="flex justify-start space-x-4">
-                  <button
-                    type="submit"
-                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-300"
-                  >
-                    Save Changes
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  className="px-8 py-2 bg-blue-500 text-white rounded-md hover:bg-gray-700"
+                >
+                  {loading ? "Updating..." : "Update Issue"}
+                </button>
               </form>
             )}
           </div>

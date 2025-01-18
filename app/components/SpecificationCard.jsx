@@ -35,10 +35,10 @@ const DashboardInfoCard = ({ title, description, items = [] }) => {
                 className="flex flex-col justify-between bg-gray-900 p-4 rounded-xl hover:bg-blue-600 transition-all shadow-lg hover:shadow-xl cursor-pointer"
               >
                 <div>
-                  <p className="text-lg font-medium text-gray-50">
+                  <p className="text-lg font-medium text-gray-50 mb-2">
                     {item.label}
                   </p>
-                  <p className="text-sm text-gray-200">{item.value}</p>
+                  <p className=" text-gray-300 text-xs">{item.value}</p>
                 </div>
               </div>
             ))

@@ -1,70 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
+import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
+// import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
 
 // Pagination logic
 const issuesPerPage = 5;
 
 const RecentsIssues = () => {
-  const [issues, setIssues] = useState([
-    {
-      issue: "Conveyor Belt Tear - Line 03 5567-BELT-CV03",
-      id: "76235",
-      status: "YTS",
-      assigned_to: "Maintenance",
-      comment: "The belt has a major tear near the loading zone.",
-      created_at: "2022-01-01",
-    },
-    {
-      issue: "Drill Head Overheating - Unit 4782-DRL-HD02",
-      id: "74239",
-      status: "closed",
-      assigned_to: "Drilling",
-      comment: "Drill head overheating during operations. Resolved.",
-      created_at: "2022-01-01",
-    },
-    {
-      issue: "Hydraulic Leak - Excavator 8821-HYD-EX01",
-      id: "76536",
-      status: "ongoing",
-      assigned_to: "Hydraulics",
-      comment: "Hydraulic fluid leaking from the main cylinder.",
-      created_at: "2022-01-01",
-    },
-    {
-      issue: "Control Panel Fault - Crusher 2234-CTRL-CS01",
-      id: "75736",
-      status: "YTS",
-      assigned_to: "Electrical",
-      comment: "Crusher control panel unresponsive.",
-      created_at: "2022-01-01",
-    },
-    {
-      issue: "Sensor Failure - Loader 6651-SENS-LD02",
-      id: "74670",
-      status: "YTS",
-      assigned_to: "Sensors",
-      comment: "Proximity sensor not detecting objects.",
-      created_at: "2022-01-03",
-    },
-    {
-      issue: "Track Misalignment - Dozer 8822-TRCK-DZ01",
-      id: "76234",
-      status: "YTS",
-      assigned_to: "Maintenance",
-      comment: "Tracks are misaligned, affecting movement.",
-      created_at: "2022-01-02",
-    },
-    {
-      issue: "Cabin Display Error - Haul Truck 3321-DISP-HT01",
-      id: "76233",
-      status: "ongoing",
-      assigned_to: "Electrical",
-      comment: "Cabin display showing incorrect readings.",
-      created_at: "2022-01-03",
-    },
-  ]);
+  const [issues, setIssues] = useState([]);
+
+  // Fetch issues from Supabase
+  //this is what you should comment out to put tech valleys end point
+  /*
+    const fetchIssuesFromAPI = async () => {
+      try {
+        // Replace with your Supabase API endpoint and authorization key
+        const response = await axios.get("https://your-supabase-api-endpoint/recent activity", {
+          headers: {
+            apiKey: "your-supabase-api-key", // Replace with your Supabase API key
+            Authorization: `Bearer your-supabase-auth-token`, // Replace with your Bearer token if needed
+          },
+        });
+
+        const data = response.data;
+        console.log("Fetched Data:", data); // Log fetched data for verification
+        setIssues(data); // Update the `issues` state with the fetched data
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError(error.message); // Set error message
+      }
+    };
+    */
+
+  //this is for my supabase comment this section when you link to tech vally db
+  const fetchIssuesFromAPI = async () => {
+    try {
+      // Fetch data from Supabase
+      const { data, error } = await supabase
+        .from("recent_activity") // Replace 'activity db' with your table name
+        .select("*"); // Fetch all columns (you can customize columns if needed)
+
+      if (error) throw error;
+
+      console.log("Fetched Data:", data); // Log fetched data for verification
+      setIssues(data); // Update the `issues` state with the fetched data
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setError(error.message); // Set error message
+    }
+  };
+
+  // Fetch data immediately and set up periodic fetching
+  useEffect(() => {
+    // Fetch data immediately
+    fetchIssuesFromAPI();
+
+    // Set up an interval to fetch data every 10 seconds
+    const intervalId = setInterval(() => {
+      fetchIssuesFromAPI();
+    }, 30000); // 2 seconds interval
+
+    // Cleanup interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, []);
 
   // this is sorting and pagination logic
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,12 +84,12 @@ const RecentsIssues = () => {
       if (field === "date") {
         // Handle sorting by date, as before
         return sortOrder === "asc"
-          ? new Date(a.created_at) - new Date(b.created_at)
-          : new Date(b.created_at) - new Date(a.created_at);
+          ? new Date(a.activity_timestamp) - new Date(b.activity_timestamp)
+          : new Date(b.activity_timestamp) - new Date(a.activity_timestamp);
       } else if (field === "name") {
         // Ensure the issue.name is being accessed properly
-        const nameA = a.issue || ""; // Access 'issue.issue' field for name
-        const nameB = b.issue || ""; // Access 'issue.issue' field for name
+        const nameA = a.issue_name || ""; // Access 'issue.issue' field for name
+        const nameB = b.issue_name || ""; // Access 'issue.issue' field for name
         return sortOrder === "asc"
           ? nameA.localeCompare(nameB)
           : nameB.localeCompare(nameA);
@@ -118,7 +118,7 @@ const RecentsIssues = () => {
       <Card className="w-full p-4">
         <table className="w-full table-auto border-collapse min-h-[300px] flex flex-col justify-start ">
           <thead className="bg-gray-700 text-white rounded-md p-2">
-            <tr className="text-left grid grid-cols-6">
+            <tr className="text-left grid grid-cols-7">
               <th
                 className="px-4 py-2 cursor-pointer "
                 onClick={() => handleSort("name")}
@@ -132,7 +132,7 @@ const RecentsIssues = () => {
               </th>
               <th className="px-4 py-2">Issue ID</th>
               <th className="px-4 py-2">Status</th>
-              <th className="px-4 py-2">Assigned To</th>
+              <th className="px-4 py-2">Activity Type</th>
               <th className="px-4 py-2">Comment</th>
               <th
                 className="px-4 py-2 cursor-pointer "
@@ -145,16 +145,17 @@ const RecentsIssues = () => {
                   </span>
                 )}
               </th>
+              <th className="px-4 py-2">Reborted By</th>
             </tr>
           </thead>
           <tbody>
             {currentIssues.map((issue) => (
               <tr
                 key={issue.id}
-                className="hover:bg-gray-100 cursor-pointer grid grid-cols-6"
+                className="hover:bg-gray-100 cursor-pointer grid grid-cols-7"
               >
                 <td className="px-4 py-2 border-b font-bold text-sm">
-                  {issue.issue}
+                  {issue.issue_name}
                 </td>
                 <td className="px-4 py-2 border-b">{issue.id}</td>
                 <td
@@ -172,13 +173,16 @@ const RecentsIssues = () => {
                       ? "Ongoing"
                       : "Closed"}
                 </td>
-                <td className="px-4 py-2 border-b text-sm">
-                  {issue.assigned_to}
+                <td
+                  className={`px-4 py-2 border-b text-sm ${issue.activity_type === "INSERT" ? "bg-green-100 text-green-800" : issue.activity_type === "UPDATE" ? "bg-yellow-100 text-yellow-800" : "bg-gray-100 text-gray-800"}`}
+                >
+                  {issue.activity_type}
                 </td>
                 <td className="px-4 py-2 border-b text-sm">{issue.comment}</td>
                 <td className="px-4 py-2 border-b text-sm font-medium">
-                  {issue.created_at}
+                  {issue.activity_timestamp}
                 </td>
+                <td className="px-4 py-2 border-b">{issue.reported_by}</td>
               </tr>
             ))}
           </tbody>

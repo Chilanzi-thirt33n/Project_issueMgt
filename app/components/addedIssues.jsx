@@ -62,7 +62,7 @@ const AddedIssues = () => {
     // Set up an interval to fetch data every 10 seconds
     const intervalId = setInterval(() => {
       fetchIssuesFromAPI();
-    }, 10000); // 2 seconds interval
+    }, 30000); // 2 seconds interval
 
     // Cleanup interval when the component is unmounted
     return () => clearInterval(intervalId);
@@ -150,7 +150,7 @@ const AddedIssues = () => {
               <tr>
                 <td
                   colSpan="8"
-                  className="flex justify-center items-center text-center py-4 text-xl font-bold min-h-[700px]"
+                  className="flex justify-center items-center text-center py-4 text-xl font-bold min-h-[300px]"
                 >
                   No issues available
                 </td>

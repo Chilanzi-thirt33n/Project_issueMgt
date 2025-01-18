@@ -55,6 +55,14 @@ const RecentsIssues = () => {
   useEffect(() => {
     // Fetch data immediately
     fetchIssuesFromAPI();
+
+    // Set an interval to fetch data every 5 seconds
+    const interval = setInterval(() => {
+      fetchIssuesFromAPI();
+    }, 5000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(interval);
   }, []); // Empty dependency array means this will only run once when the component mounts will need to add web socket feature for live data
 
   // this is sorting and pagination logic

@@ -115,7 +115,7 @@ const AddedIssues = () => {
           <thead className="bg-gray-700 text-white rounded-md p-2">
             <tr className="text-left grid grid-cols-8">
               <th
-                className="px-4 py-2 cursor-pointer"
+                className="px-4 py-2 text-sm cursor-pointer"
                 onClick={() => handleSort("name")}
               >
                 Issue
@@ -125,11 +125,11 @@ const AddedIssues = () => {
                   </span>
                 )}
               </th>
-              <th className="px-4 py-2">Issue ID</th>
-              <th className="px-4 py-2">Assigned To</th>
-              <th className="px-4 py-2">Comment</th>
+              <th className="px-4 py-2 text-sm">Issue ID</th>
+              <th className="px-4 py-2 text-sm">Assigned To</th>
+              <th className="px-4 py-2 text-sm">Comment</th>
               <th
-                className="px-4 py-2 cursor-pointer "
+                className="px-4 py-2 cursor-pointer text-sm"
                 onClick={() => handleSort("date")}
               >
                 Date
@@ -139,9 +139,9 @@ const AddedIssues = () => {
                   </span>
                 )}
               </th>
-              <th className="px-4 py-2">Progress</th>
-              <th className="px-4 py-2">Status</th>
-              <th className="px-4 py-2">Actions</th>
+              <th className="px-4 py-2 text-sm">Progress</th>
+              <th className="px-4 py-2 text-sm">Status</th>
+              <th className="px-4 py-2 text-sm">Actions</th>
             </tr>
           </thead>
           <tbody className="overflow-y-auto flex flex-col items-center justify-center max-h-[700px]">
@@ -158,23 +158,23 @@ const AddedIssues = () => {
               currentIssues.map((issue) => (
                 <tr
                   key={issue.id}
-                  className="hover:bg-gray-100 cursor-pointer grid grid-cols-8"
+                  className="w-full hover:bg-gray-100 cursor-pointer grid grid-cols-8 text-xs justify-evenly"
                 >
-                  <td className="px-4 py-2 border-b font-bold text-sm">
+                  <td className="px-4 py-2 border-b font-bold text-xs">
                     {issue.issue}
                   </td>
-                  <td className="px-4 py-2 border-b text-sm">{issue.id}</td>
-                  <td className="px-4 py-2 border-b text-sm">
+                  <td className="px-4 py-2 border-b text-xm">{issue.id}</td>
+                  <td className="px-4 py-2 border-b text-xm">
                     {issue.assigned_to}
                   </td>
-                  <td className="px-4 py-2 border-b text-sm">
+                  <td className="px-4 py-2 border-b text-xm">
                     {issue.comment}
                   </td>
-                  <td className="px-4 py-2 border-b text-sm">
-                    {issue.created_at}
+                  <td className="px-4 py-2 border-b text-xm">
+                    {new Date(issue.created_at).toISOString().split("T")[0]}
                   </td>
-                  <td className="px-4 py-2 border-b text-sm">
-                    <h3 className="text-sm font-bold text-end ">
+                  <td className="px-4 py-2 border-b text-xm">
+                    <h3 className="text-xm font-bold text-end ">
                       {issue.progress}%
                     </h3>
                     <div className="w-full bg-gray-200 rounded-full ">
@@ -185,7 +185,7 @@ const AddedIssues = () => {
                     </div>
                   </td>
                   <td
-                    className={`px-4 py-2 border-b font-semibold text-sm ${
+                    className={`px-4 py-2 border-b font-semibold text-xm ${
                       issue.status === "YTS"
                         ? "text-blue-800 bg-blue-200"
                         : issue.status === "Ongoing"
@@ -199,7 +199,7 @@ const AddedIssues = () => {
                         ? "Ongoing"
                         : "Closed"}
                   </td>
-                  <td className="px-4 py-2 border-b text-sm">
+                  <td className="px-4 py-2 border-b text-xm">
                     <Link
                       href={`/dashboard/IssueManagment/${issue.id}`}
                       className="text-white hover:bg-gray-700 bg-blue-500 py-2 px-8 rounded-md"

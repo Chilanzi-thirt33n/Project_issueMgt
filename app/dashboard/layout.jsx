@@ -31,7 +31,7 @@ export default function DashboardLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="grid grid-cols-[20rem,1fr] w-screen h-screen bg-gray-200 gap-2">
+        <div className="grid grid-cols-[20rem,1fr] w-screen h-screen bg-gray-200 gap-1">
           {/* Sidebar */}
           <aside className="h-full w-80 text-white p-2">
             <Sidebar />

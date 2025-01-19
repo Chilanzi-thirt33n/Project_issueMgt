@@ -14,7 +14,7 @@ function ProgressPieChart({ percentage = 0 }) {
   ];
 
   return (
-    <Card className="flex flex-col bg-gray-900 text-white">
+    <Card className="flex flex-col bg-gray-900 justify-center items-center text-white">
       {/* Card Content */}
       <CardContent className="flex-1 pb-0">
         <div className="relative mx-auto aspect-square max-h-[250px]">
@@ -24,7 +24,7 @@ function ProgressPieChart({ percentage = 0 }) {
               <span className="text-4xl font-bold text-blue-500">
                 {clampedPercentage}%
               </span>
-              <div className="text-sm text-gray-400">Progress</div>
+              <div className="text-sm text-gray-400 text-center">Progress</div>
             </div>
           </div>
 
@@ -37,8 +37,8 @@ function ProgressPieChart({ percentage = 0 }) {
             <Pie
               data={chartData}
               dataKey="value"
-              innerRadius={70}
-              outerRadius={100}
+              innerRadius={60}
+              outerRadius={80}
               startAngle={90}
               endAngle={-270} // Full circular progress
               stroke="none"
@@ -53,7 +53,7 @@ function ProgressPieChart({ percentage = 0 }) {
 
       {/* Card Footer */}
       <CardFooter className="flex-col gap-2 text-sm text-center">
-        <div className="text-lg font-bold text-blue-500">
+        <div className="text-sm font-bold text-blue-500">
           {clampedPercentage}% Progress
         </div>
         <div className="text-gray-400">

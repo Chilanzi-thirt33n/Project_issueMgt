@@ -120,7 +120,7 @@ const RecentsIssues = () => {
           <thead className="bg-gray-700 text-white rounded-md p-2">
             <tr className="text-left grid grid-cols-7">
               <th
-                className="px-4 py-2 cursor-pointer "
+                className="px-4 py-2 cursor-pointer text-sm"
                 onClick={() => handleSort("name")}
               >
                 Issue
@@ -130,12 +130,12 @@ const RecentsIssues = () => {
                   </span>
                 )}
               </th>
-              <th className="px-4 py-2">Issue ID</th>
-              <th className="px-4 py-2">Status</th>
-              <th className="px-4 py-2">Activity Type</th>
-              <th className="px-4 py-2">Comment</th>
+              <th className="px-4 py-2 text-sm">Issue ID</th>
+              <th className="px-4 py-2 text-sm">Status</th>
+              <th className="px-4 py-2 text-sm">Activity Type</th>
+              <th className="px-4 py-2 text-sm">Comment</th>
               <th
-                className="px-4 py-2 cursor-pointer "
+                className="px-4 py-2 cursor-pointer text-sm"
                 onClick={() => handleSort("date")}
               >
                 Date
@@ -145,12 +145,12 @@ const RecentsIssues = () => {
                   </span>
                 )}
               </th>
-              <th className="px-4 py-2">Reborted By</th>
+              <th className="px-4 py-2 text-sm">Reborted By</th>
             </tr>
           </thead>
           <tbody>
             {currentIssues.length === 0 ? (
-              <tr className="flex justify-center items-center text-center py-4 text-xl font-bold min-h-[300px]">
+              <tr className="flex justify-center items-center text-center py-4  font-bold min-h-[300px] text-sm">
                 <td colSpan="7" className="text-center py-4 text-gray-500">
                   No activities found.
                 </td>
@@ -159,14 +159,14 @@ const RecentsIssues = () => {
               currentIssues.map((issue) => (
                 <tr
                   key={issue.id}
-                  className="hover:bg-gray-100 cursor-pointer grid grid-cols-7"
+                  className="hover:bg-gray-100 cursor-pointer grid grid-cols-7 text-xs"
                 >
-                  <td className="px-4 py-2 border-b font-bold text-sm">
+                  <td className="px-4 py-2 border-b font-bold text-xm">
                     {issue.issue_name}
                   </td>
-                  <td className="px-4 py-2 border-b">{issue.id}</td>
+                  <td className="px-4 py-2 border-b text-xs">{issue.id}</td>
                   <td
-                    className={`px-4 py-2 border-b font-semibold text-sm ${
+                    className={`px-4 py-2 border-b font-semibold text-xs ${
                       issue.status === "YTS"
                         ? "text-blue-800 bg-blue-200"
                         : issue.status === "Ongoing"
@@ -181,7 +181,7 @@ const RecentsIssues = () => {
                         : "Closed"}
                   </td>
                   <td
-                    className={`px-4 py-2 border-b text-sm ${
+                    className={`px-4 py-2 border-b text-xs ${
                       issue.activity_type === "INSERT"
                         ? "bg-green-100 text-green-800"
                         : issue.activity_type === "UPDATE"
@@ -191,13 +191,15 @@ const RecentsIssues = () => {
                   >
                     {issue.activity_type}
                   </td>
-                  <td className="px-4 py-2 border-b text-sm">
+                  <td className="px-4 py-2 border-b text-xs">
                     {issue.comment}
                   </td>
-                  <td className="px-4 py-2 border-b text-sm font-medium">
-                    {issue.activity_timestamp}
+                  <td className="px-4 py-2 border-b text-xs font-medium">
+                    {new Date(issue.activity_timestamp).toLocaleTimeString()}
                   </td>
-                  <td className="px-4 py-2 border-b">{issue.reported_by}</td>
+                  <td className="px-4 py-2 border-b text-xs">
+                    {issue.reported_by}
+                  </td>
                 </tr>
               ))
             )}

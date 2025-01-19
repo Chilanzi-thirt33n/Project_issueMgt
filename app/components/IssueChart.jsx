@@ -9,6 +9,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import {
   ChartContainer,
@@ -52,10 +53,10 @@ const IssueChart = () => {
             data={chartData}
             layout="vertical"
             margin={{
-              left: 10, // Increased space for larger Y-axis labels
-              right: 10,
-              top: 10,
-              bottom: 10,
+              left: 5, // Increased space for larger Y-axis labels
+              right: 5,
+              top: 5,
+              bottom: 5,
             }}
             height={50} // Adjusted the chart height for a more compact view
           >
@@ -66,7 +67,7 @@ const IssueChart = () => {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tick={{ fontSize: 14 }} // Increased font size of Y-axis labels
+              tick={{ fontSize: 10 }} // Increased font size of Y-axis labels
             />
             <Tooltip />
             <ChartTooltip
@@ -78,6 +79,16 @@ const IssueChart = () => {
           </BarChart>
         </ChartContainer>
       </CardContent>
+      <CardFooter>
+        <div className="flex flex-col justify-between items-center w-full">
+          <div className="text-sm font-medium text-gray-400 text-center">
+            Showing current issues in system
+          </div>
+          <div className="text-sm font-medium text-gray-400">
+            Last updated: Today
+          </div>
+        </div>
+      </CardFooter>
     </Card>
   );
 };

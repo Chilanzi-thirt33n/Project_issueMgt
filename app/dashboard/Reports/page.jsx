@@ -1,17 +1,12 @@
 "use client";
 
-import CrewChart from "../../components/crewChart";
-import DepartmentChart from "../../components/departmentJobsChart";
 import { Suspense } from "react";
-import Trends from "../../components/MonthChart";
 import { useState } from "react";
 import History from "../../components/overviewReport";
 
 export default function Reports() {
   //this is dummy data and needs to be fetched from db
   const [data, setData] = useState({
-    title: "Closed issues",
-    description: "This is a list of resolved issues in the system.",
     issues: [
       {
         id: 1,
@@ -115,10 +110,7 @@ export default function Reports() {
       },
     ],
   });
-  const [data1, setData1] = useState({
-    title: "Open issues",
-    description: "This is a list of open issues in the system.",
-  });
+  const [data1, setData1] = useState({});
   return (
     <div>
       <header>
@@ -126,30 +118,16 @@ export default function Reports() {
       </header>
       <main className="grid grid-cols-1 w-full">
         {/* Overview Reports Section*/}
-        <div className="mt-10 space-y-3 w-full">
+        <div className="mt-10 space-y-6 w-full">
           <h1 className="text-lg">Overview Reports</h1>
-          <div className="space-y-2 w-ful">
+          <div className="space-y-3 w-ful">
             <Suspense fallback={<div>Loading...</div>}>
+              <h2> Closed issues</h2>
               <History data={data} />
             </Suspense>
             <Suspense fallback={<div>Loading...</div>}>
+              <h2> Yet to start and ongoing issues</h2>
               <History data={data1} />
-            </Suspense>
-          </div>
-        </div>
-
-        {/* Trends Reports Section*/}
-        <div className="mt-10 space-y-3 w-full">
-          <h1 className="text-lg">Trends Reports</h1>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:grid-rows-2 w-full">
-            <Suspense fallback={<div>Loading...</div>}>
-              <CrewChart />
-            </Suspense>
-            <Suspense fallback={<div>Loading...</div>}>
-              <DepartmentChart />
-            </Suspense>
-            <Suspense fallback={<div>Loading...</div>}>
-              <Trends />
             </Suspense>
           </div>
         </div>

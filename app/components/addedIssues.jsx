@@ -149,7 +149,7 @@ const AddedIssues = () => {
               <tr>
                 <td
                   colSpan="8"
-                  className="flex justify-center items-center text-center py-4 text-xl font-bold min-h-[300px] text-gray-500"
+                  className="flex justify-center items-center text-center py-4 text-sm font-bold min-h-[300px] text-gray-500"
                 >
                   No issues available
                 </td>

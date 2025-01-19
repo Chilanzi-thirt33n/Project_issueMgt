@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
-// import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
+import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client
+//import axios from "axios";
 
 function AddButton() {
   // State to toggle form visibility
@@ -11,6 +11,7 @@ function AddButton() {
   const [formData, setFormData] = useState({
     area: "",
     phase: "",
+    section: "",
     issue: "",
     classification: "",
     priority: "",
@@ -20,6 +21,7 @@ function AddButton() {
     comment: "",
   });
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to track submission
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -35,58 +37,17 @@ function AddButton() {
     setShowForm((prev) => !prev);
   };
 
-  // uncomment this to test your end point and make sure you comment out my supabase
-  /*
+  // Handle form submission (Supabase example, comment out when using axios)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://your-new-endpoint.com/your-api-path",
-        {
-          area: formData.area,
-          phase: formData.phase,
-          issue: formData.issue,
-          classification: formData.classification,
-          priority: formData.priority,
-          reported_by: formData.reported_by,
-          contact_number: formData.contact_number,
-          assigned_to: formData.assigned_to,
-          comment: formData.comment,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            // Add authentication if needed
-            "Authorization": `Bearer YOUR_API_KEY`,
-          },
-        }
-      );
 
-      if (response.status === 200) {
-        alert("Data added successfully!");
-        setFormData({
-          area: "",
-          phase: "",
-          issue: "",
-          classification: "",
-          priority: "",
-          reported_by: "",
-          contact_number: "",
-          assigned_to: "",
-          comment: "",
-        });
-        setShowForm(false);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setError(error.message); // Set error message
-    }
-    };
-    */
+    // Prevent further submissions if already submitting
+    if (isSubmitting) return;
 
-  // Handle form submission this my supapbase comment this section when you link to tech valleys db
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    // Set submitting state to true
+    setIsSubmitting(true);
+
+    // supabase version
     try {
       // Insert data into Supabase
       const { data, error } = await supabase
@@ -95,6 +56,7 @@ function AddButton() {
           {
             area: formData.area,
             phase: formData.phase,
+            section: formData.section,
             issue: formData.issue,
             classification: formData.classification,
             priority: formData.priority,
@@ -111,6 +73,7 @@ function AddButton() {
       setFormData({
         area: "",
         phase: "",
+        section: "",
         issue: "",
         classification: "",
         priority: "",
@@ -123,7 +86,22 @@ function AddButton() {
     } catch (error) {
       console.error("Error:", error);
       setError(error.message); // Set error message
+    } finally {
+      // Reset submitting state after processing
+      setIsSubmitting(false);
     }
+
+    // Axios request (commented out for now)
+    /*
+    try {
+      const response = await axios.post("YOUR_API_ENDPOINT", formData);
+      console.log("Response from server:", response.data);
+      // Handle success (e.g., show confirmation message)
+    } catch (error) {
+      console.error("Error submitting data:", error);
+      setError("There was an error submitting the form.");
+    }
+    */
   };
 
   return (
@@ -189,6 +167,28 @@ function AddButton() {
                     <option value="Phase 1">Phase 1</option>
                     <option value="Phase 2">Phase 2</option>
                     <option value="Phase 3">Phase 3</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="section" className="block text-lg mb-2">
+                    Section:
+                  </label>
+                  <select
+                    id="section"
+                    name="section"
+                    value={formData.section}
+                    onChange={handleChange}
+                    className="px-3 py-2 border rounded w-full"
+                    required
+                  >
+                    <option value="">Select section</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Process">Process</option>
+                    <option value="Mining">Mining</option>
+                    <option value="Intrumentation">Intrumentation</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="StandBy">StandBy</option>
                   </select>
                 </div>
 
@@ -272,7 +272,7 @@ function AddButton() {
                     htmlFor="contact_number"
                     className="block text-lg mb-2"
                   >
-                    Assigned Department Contact:
+                    Assigned Contact:
                   </label>
                   <input
                     type="text"
@@ -298,53 +298,46 @@ function AddButton() {
                     className="px-3 py-2 border rounded w-full"
                     required
                   >
-                    <option value="">Select Department</option>
-                    <option value="Electrical Department">
-                      Electrical Department
-                    </option>
-                    <option value="Mechanical Department">
-                      Mechanical Department
-                    </option>
-                    <option value="Plumbing Department">
-                      Plumbing Department
-                    </option>
-                    <option value="Maintenance Department">
-                      Maintenance Department
-                    </option>
-                    <option value="Safety Department">Safety Department</option>
+                    <option value="">Select individual</option>
+                    <option value="John Doe">John Doe</option>
+                    <option value="Jane Smith">Jane Smith</option>
+                    <option value="Michael Brown">Michael Brown</option>
+                    <option value="Emily Davis">Emily Davis</option>
+                    <option value="Sarah Wilson">Sarah Wilson</option>
                   </select>
                 </div>
-
-                <div className="sm:col-span-2">
-                  <label htmlFor="comment" className="block text-lg mb-2">
-                    Comment:
-                  </label>
-                  <textarea
-                    id="comment"
-                    name="comment"
-                    value={formData.comment}
-                    onChange={handleChange}
-                    className="px-3 py-2 border rounded w-full"
-                    placeholder="Add a comment"
-                    required
-                  />
-                </div>
               </div>
-
-              {error && (
-                <div className="text-red-600 bg-red-100 p-2 mt-4 rounded">
-                  <strong>Error:</strong> {error}
-                </div>
-              )}
 
               <div>
-                <button
-                  type="submit"
-                  className="px-8 py-2 bg-blue-500 text-white w-full font-bold rounded hover:bg-blue-300"
-                >
-                  Add issue
-                </button>
+                <label htmlFor="comment" className="block text-lg mb-2">
+                  Comments:
+                </label>
+                <textarea
+                  id="comment"
+                  name="comment"
+                  value={formData.comment}
+                  onChange={handleChange}
+                  className="px-3 py-2 border rounded w-full"
+                  rows="4"
+                  placeholder="Additional comments"
+                />
               </div>
+
+              {/* Error message display */}
+              {error && (
+                <p className="text-red-500 mt-2 text-center">{error}</p>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className={`bg-blue-500 text-white px-6 py-3 rounded ${
+                  isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={isSubmitting} // Disable button during submission
+              >
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </button>
             </form>
           </div>
         </div>

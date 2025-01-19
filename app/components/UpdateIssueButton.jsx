@@ -6,17 +6,7 @@ import { supabase } from "../../lib/supabaseClient"; // Import your Supabase cli
 
 const UpdateIssueButton = ({ issue_id, onUpdate }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    issue: "",
-    comment: "",
-    assigned_to: "",
-    classification: "",
-    progress: "20%",
-    priority: "priority 1",
-    reported_by: "",
-    contact_number: "",
-    status: "YTS",
-  });
+  const [formData, setFormData] = useState({});
 
   const [loading, setLoading] = useState(false);
 
@@ -70,8 +60,11 @@ const UpdateIssueButton = ({ issue_id, onUpdate }) => {
           issue: issue.issue || "",
           comment: issue.comment || "",
           assigned_to: issue.assigned_to || "",
+          section: issue.section || "",
+          area: issue.area || "",
+          phase: issue.phase || "",
           classification: issue.classification || "",
-          progress: issue.progress || "20%",
+          progress: issue.progress || "0",
           priority: issue.priority || "Low",
           reported_by: issue.reported_by || "",
           contact_number: issue.contact_number || "",
@@ -153,6 +146,9 @@ const handleSubmit = async (e) => {
           issue: formData.issue,
           comment: formData.comment,
           assigned_to: formData.assigned_to,
+          section: formData.section,
+          area: formData.area,
+          phase: formData.phase,
           classification: formData.classification,
           progress: formData.progress,
           priority: formData.priority,
@@ -219,6 +215,55 @@ const handleSubmit = async (e) => {
                       required
                     />
                   </div>
+                  {/* area */}
+                  <div>
+                    <label className="block text-lg mb-2">Area:</label>
+                    <select
+                      name="area"
+                      value={formData.area}
+                      onChange={handleChange}
+                      className="px-3 py-2 border rounded w-full"
+                      required
+                    >
+                      <option value="">Select Area</option>
+                      <option value="Area 1">Area 1</option>
+                      <option value="Area 2">Area 2</option>
+                      <option value="Area 3">Area 3</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-lg mb-2">Phase:</label>
+                    <select
+                      name="phase"
+                      value={formData.phase}
+                      onChange={handleChange}
+                      className="px-3 py-2 border rounded w-full"
+                    >
+                      <option value="">Select Phase</option>
+                      <option value="Phase 1">Phase 1</option>
+                      <option value="Phase 2">Phase 2</option>
+                      <option value="Phase 3">Phase 3</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-lg mb-2">Section:</label>
+                    <select
+                      name="section"
+                      value={formData.section}
+                      onChange={handleChange}
+                      className="px-3 py-2 border rounded w-full"
+                    >
+                      <option value="">Select section</option>
+                      <option value="Electrical">Electrical</option>
+                      <option value="Process">Process</option>
+                      <option value="Mining">Mining</option>
+                      <option value="Intrumentation">Intrumentation</option>
+                      <option value="Mechanical">Mechanical</option>
+                      <option value="StandBy">StandBy</option>
+                    </select>
+                  </div>
 
                   {/* Assigned To */}
                   <div>
@@ -228,23 +273,12 @@ const handleSubmit = async (e) => {
                       value={formData.assigned_to}
                       onChange={handleChange}
                       className="px-3 py-2 border rounded w-full"
-                      required
                     >
-                      <option value="Electrical Department">
-                        Electrical Department
-                      </option>
-                      <option value="Mechanical Department">
-                        Mechanical Department
-                      </option>
-                      <option value="Plumbing Department">
-                        Plumbing Department
-                      </option>
-                      <option value="Maintenance Department">
-                        Maintenance Department
-                      </option>
-                      <option value="Safety Department">
-                        Safety Department
-                      </option>
+                      <option value="John Doe">John Doe</option>
+                      <option value="Jane Smith">Jane Smith</option>
+                      <option value="Michael Brown">Michael Brown</option>
+                      <option value="Emily Davis">Emily Davis</option>
+                      <option value="Sarah Wilson">Sarah Wilson</option>
                     </select>
                   </div>
 

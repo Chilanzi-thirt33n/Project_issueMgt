@@ -28,6 +28,7 @@ const IssueDetails = ({ data }) => {
     assigned_to = "N/A ",
     comment = "No comments provided",
     phase = "N/A ",
+    section = "N/A",
     created_at = "N/A",
     updated_at = "N/A",
     status = "N/A",
@@ -70,7 +71,7 @@ const IssueDetails = ({ data }) => {
             <span>
               <h3 className="font-bold text-sm">location</h3>
               <p className="text-xm">
-                {area} | {phase}
+                {area} - {phase} - {section}
               </p>
             </span>
           </li>

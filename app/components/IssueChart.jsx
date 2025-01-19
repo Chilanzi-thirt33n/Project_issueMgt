@@ -1,7 +1,9 @@
 "use client";
 
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from "recharts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
+// import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
 
 import {
   Card,
@@ -19,15 +21,41 @@ import {
 
 const IssueChart = () => {
   // Updated chart data with completed, active, and total issues
-  const [chartData, setChartData] = useState([
-    { category: "Total Issues", value: 50 },
-    { category: "Closed Issues", value: 45 },
-    { category: "Active Issues", value: 5 },
-  ]);
+  const [chartData, setChartData] = useState([]);
+  useEffect(() => {
+    const fetchIssuesCounts = async () => {
+      // Call the SQL function
+      const { data, error } = await supabase.rpc("get_issues_count");
 
+      if (error) {
+        console.error("Error fetching issue counts:", error);
+        return;
+      }
+
+      // Transform data for the chart
+      const formattedData = [
+        {
+          category: "YTS Issues",
+          value: data.find((item) => item.status === "YTS")?.count || 0,
+        },
+        {
+          category: "Ongoing Issues",
+          value: data.find((item) => item.status === "Ongoing")?.count || 0,
+        },
+        {
+          category: "Closed Issues",
+          value: data.find((item) => item.status === "Closed")?.count || 0,
+        },
+      ];
+
+      setChartData(formattedData);
+    };
+
+    fetchIssuesCounts();
+  }, []);
   const chartConfig = {
     total: {
-      label: "Total Issues",
+      label: "YTS Issues",
       color: "hsl(var(--chart-1))",
     },
     closed: {
@@ -35,7 +63,7 @@ const IssueChart = () => {
       color: "hsl(var(--chart-2))",
     },
     active: {
-      label: "Active Issues",
+      label: "Ongoing Issues",
       color: "hsl(var(--chart-3))",
     },
   };

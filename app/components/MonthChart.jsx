@@ -39,24 +39,22 @@ const formatDateToWords = (dateString) => {
 };
 
 const TrendChart = () => {
-  //initail data for testing
+  // Sample data for testing
   const [chartData, setChartData] = useState([
-    { date: "2024-04-01", open_issues: 50, closed_issues: 9 },
-    { date: "2024-04-02", open_issues: 18, closed_issues: 12 },
-    { date: "2024-04-03", open_issues: 5, closed_issues: 9 },
-    { date: "2024-04-04", open_issues: 6, closed_issues: 3 },
-    { date: "2024-04-05", open_issues: 13, closed_issues: 8 },
-    { date: "2024-04-06", open_issues: 4, closed_issues: 20 },
-    { date: "2024-04-07", open_issues: 13, closed_issues: 17 },
-    { date: "2024-04-08", open_issues: 10, closed_issues: 8 },
-    { date: "2024-04-09", open_issues: 70, closed_issues: 19 },
-    { date: "2024-04-11", open_issues: 90, closed_issues: 10 },
-    { date: "2024-04-12", open_issues: 20, closed_issues: 12 },
-    { date: "2024-04-13", open_issues: 21, closed_issues: 23 },
-    { date: "2024-04-14", open_issues: 22, closed_issues: 24 },
-    { date: "2024-04-12", open_issues: 2, closed_issues: 22 },
-    { date: "2024-04-13", open_issues: 10, closed_issues: 30 },
-    { date: "2024-04-14", open_issues: 20, closed_issues: 20 },
+    { date: "2024-04-01", yetToStart: 50, open_issues: 80, closed_issues: 9 },
+    { date: "2024-04-02", yetToStart: 18, open_issues: 40, closed_issues: 12 },
+    { date: "2024-04-03", yetToStart: 10, open_issues: 20, closed_issues: 9 },
+    { date: "2024-04-04", yetToStart: 5, open_issues: 15, closed_issues: 3 },
+    { date: "2024-04-05", yetToStart: 30, open_issues: 25, closed_issues: 8 },
+    { date: "2024-04-06", yetToStart: 40, open_issues: 10, closed_issues: 20 },
+    { date: "2024-04-07", yetToStart: 25, open_issues: 13, closed_issues: 17 },
+    { date: "2024-04-08", yetToStart: 15, open_issues: 18, closed_issues: 8 },
+    { date: "2024-04-09", yetToStart: 50, open_issues: 40, closed_issues: 19 },
+    { date: "2024-04-10", yetToStart: 30, open_issues: 60, closed_issues: 10 },
+    { date: "2024-04-11", yetToStart: 20, open_issues: 90, closed_issues: 10 },
+    { date: "2024-04-12", yetToStart: 15, open_issues: 20, closed_issues: 12 },
+    { date: "2024-04-13", yetToStart: 10, open_issues: 30, closed_issues: 23 },
+    { date: "2024-04-14", yetToStart: 5, open_issues: 40, closed_issues: 24 },
   ]);
   const [period, setPeriod] = useState("7d");
 
@@ -79,9 +77,9 @@ const TrendChart = () => {
   return (
     <Card className="w-full col-span-2 flex flex-col justify-evenly items-center">
       <CardHeader className="self-start">
-        <CardTitle>Issue Traffic (Open Issues)</CardTitle>
+        <CardTitle>Issue Traffic</CardTitle>
         <CardDescription>
-          Track the open and closed issues over time.
+          Track the open, closed, and unstarted issues over time.
         </CardDescription>
       </CardHeader>
       <CardContent className="w-full">
@@ -110,19 +108,26 @@ const TrendChart = () => {
               <XAxis dataKey="date" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip tick={{ fontSize: 12 }} />
-              {/* Open Issues Area - Light Faded Red */}
+              {/* Yet to Start Issues - Light Blue */}
+              <Area
+                type="monotone"
+                dataKey="yetToStart"
+                stroke="#add8e6" // Light Blue stroke color
+                fill="rgba(173, 216, 230, 0.4)" // Light Blue fill color
+              />
+              {/* Open Issues - Light Green */}
               <Area
                 type="monotone"
                 dataKey="open_issues"
-                stroke="#ff6f61" // Light faded red border
-                fill="rgba(255, 111, 97, 0.2)" // Light faded red fill with transparency
+                stroke="#90ee90" // Light Green stroke color
+                fill="rgba(144, 238, 144, 0.4)" // Light Green fill color
               />
-              {/* Closed Issues Area - Light Faded Blue */}
+              {/* Closed Issues - Light Yellow */}
               <Area
                 type="monotone"
                 dataKey="closed_issues"
-                stroke="#66aaff" // Light faded blue border
-                fill="rgba(102, 170, 255, 0.2)" // Light faded blue fill with transparency
+                stroke="#ffff99" // Light Yellow stroke color
+                fill="rgba(255, 255, 153, 0.4)" // Light Yellow fill color
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -133,14 +138,21 @@ const TrendChart = () => {
           <div className="flex items-center">
             <span
               className="w-4 h-4"
-              style={{ backgroundColor: "#ff6f61", marginRight: "5px" }}
+              style={{ backgroundColor: "#add8e6", marginRight: "5px" }}
+            ></span>
+            Yet to Start
+          </div>
+          <div className="flex items-center">
+            <span
+              className="w-4 h-4"
+              style={{ backgroundColor: "#90ee90", marginRight: "5px" }}
             ></span>
             Open Issues
           </div>
           <div className="flex items-center">
             <span
               className="w-4 h-4"
-              style={{ backgroundColor: "#66aaff", marginRight: "5px" }}
+              style={{ backgroundColor: "#ffff99", marginRight: "5px" }}
             ></span>
             Closed Issues
           </div>

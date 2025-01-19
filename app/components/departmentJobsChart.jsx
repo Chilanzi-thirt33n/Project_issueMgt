@@ -18,11 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import { ChartContainer } from "@/components/ui/chart";
 import {
   Select,
   SelectContent,
@@ -31,39 +27,186 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Static initial data (with more data added)
+// Initial Data with Areas split into Area 1, Area 2, and Area 3
 const initialData = [
-  { section: "Mechanical", completed: 10, ongoing: 5, date: "2024-01-10" },
-  { section: "Electrical", completed: 15, ongoing: 2, date: "2024-01-10" },
-  { section: "Instrumentation", completed: 8, ongoing: 3, date: "2024-01-10" },
-  { section: "Operations", completed: 12, ongoing: 6, date: "2024-01-10" },
-  { section: "Mechanical", completed: 14, ongoing: 3, date: "2024-01-11" },
-  { section: "Electrical", completed: 18, ongoing: 4, date: "2024-01-11" },
-  { section: "Instrumentation", completed: 10, ongoing: 2, date: "2024-01-11" },
-  { section: "Operations", completed: 13, ongoing: 4, date: "2024-01-11" },
-  { section: "Mechanical", completed: 16, ongoing: 2, date: "2024-01-12" },
-  { section: "Electrical", completed: 20, ongoing: 1, date: "2024-01-12" },
-  { section: "Instrumentation", completed: 12, ongoing: 4, date: "2024-01-12" },
-  { section: "Operations", completed: 14, ongoing: 3, date: "2024-01-12" },
-  { section: "Mechanical", completed: 18, ongoing: 1, date: "2024-01-13" },
-  { section: "Electrical", completed: 22, ongoing: 2, date: "2024-01-13" },
-  { section: "Instrumentation", completed: 15, ongoing: 5, date: "2024-01-13" },
-  { section: "Operations", completed: 16, ongoing: 3, date: "2024-01-13" },
+  {
+    section: "Mechanical",
+    completed: 10,
+    ongoing: 5,
+    date: "2024-01-10",
+    area: "Area 1",
+    phase: "Phase 1",
+  },
+  {
+    section: "Electrical",
+    completed: 15,
+    ongoing: 2,
+    date: "2024-01-10",
+    area: "Area 2",
+    phase: "Phase 2",
+  },
+  {
+    section: "Instrumentation",
+    completed: 8,
+    ongoing: 3,
+    date: "2024-01-10",
+    area: "Area 1",
+    phase: "Phase 2",
+  },
+  {
+    section: "Operations",
+    completed: 12,
+    ongoing: 6,
+    date: "2024-01-10",
+    area: "Area 3",
+    phase: "Phase 1",
+  },
+  {
+    section: "Mechanical",
+    completed: 18,
+    ongoing: 3,
+    date: "2024-01-11",
+    area: "Area 2",
+    phase: "Phase 2",
+  },
+  {
+    section: "Electrical",
+    completed: 22,
+    ongoing: 1,
+    date: "2024-01-11",
+    area: "Area 1",
+    phase: "Phase 1",
+  },
+  {
+    section: "Instrumentation",
+    completed: 14,
+    ongoing: 5,
+    date: "2024-01-11",
+    area: "Area 3",
+    phase: "Phase 2",
+  },
+  {
+    section: "Operations",
+    completed: 16,
+    ongoing: 4,
+    date: "2024-01-11",
+    area: "Area 2",
+    phase: "Phase 1",
+  },
+  {
+    section: "Mechanical",
+    completed: 20,
+    ongoing: 1,
+    date: "2024-01-12",
+    area: "Area 1",
+    phase: "Phase 3",
+  },
+  {
+    section: "Electrical",
+    completed: 18,
+    ongoing: 4,
+    date: "2024-01-12",
+    area: "Area 2",
+    phase: "Phase 3",
+  },
+  {
+    section: "Instrumentation",
+    completed: 16,
+    ongoing: 2,
+    date: "2024-01-12",
+    area: "Area 3",
+    phase: "Phase 1",
+  },
+  {
+    section: "Operations",
+    completed: 18,
+    ongoing: 3,
+    date: "2024-01-12",
+    area: "Area 1",
+    phase: "Phase 2",
+  },
+  {
+    section: "Mechanical",
+    completed: 14,
+    ongoing: 6,
+    date: "2024-01-13",
+    area: "Area 2",
+    phase: "Phase 1",
+  },
+  {
+    section: "Electrical",
+    completed: 24,
+    ongoing: 2,
+    date: "2024-01-13",
+    area: "Area 1",
+    phase: "Phase 2",
+  },
+  {
+    section: "Instrumentation",
+    completed: 20,
+    ongoing: 1,
+    date: "2024-01-13",
+    area: "Area 3",
+    phase: "Phase 3",
+  },
+  {
+    section: "Operations",
+    completed: 22,
+    ongoing: 3,
+    date: "2024-01-13",
+    area: "Area 2",
+    phase: "Phase 2",
+  },
+  {
+    section: "Mechanical",
+    completed: 28,
+    ongoing: 2,
+    date: "2024-01-14",
+    area: "Area 1",
+    phase: "Phase 2",
+  },
+  {
+    section: "Electrical",
+    completed: 30,
+    ongoing: 1,
+    date: "2024-01-14",
+    area: "Area 3",
+    phase: "Phase 1",
+  },
+  {
+    section: "Instrumentation",
+    completed: 25,
+    ongoing: 4,
+    date: "2024-01-14",
+    area: "Area 2",
+    phase: "Phase 3",
+  },
+  {
+    section: "Operations",
+    completed: 30,
+    ongoing: 5,
+    date: "2024-01-14",
+    area: "Area 1",
+    phase: "Phase 1",
+  },
 ];
 
+// Chart configuration for completed and ongoing jobs
 const chartConfig = {
   completed: {
     label: "Completed Jobs",
-    color: "hsl(var(--chart-1))",
+    color: "hsl(200, 100%, 50%)", // Blue
   },
   ongoing: {
     label: "Ongoing Jobs",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(120, 100%, 40%)", // Green
   },
 };
 
 function JobStatusChart() {
   const [selectedDate, setSelectedDate] = useState("2024-01-10");
+  const [selectedArea, setSelectedArea] = useState("Area 1");
+  const [selectedPhase, setSelectedPhase] = useState("Phase 1");
   const [selectedSections, setSelectedSections] = useState([
     "Mechanical",
     "Electrical",
@@ -71,12 +214,16 @@ function JobStatusChart() {
     "Operations",
   ]);
 
-  // Filter the data based on selected date and sections
+  // Filter data based on selected filters
   const filteredData = initialData.filter(
     (data) =>
-      data.date === selectedDate && selectedSections.includes(data.section),
+      data.date === selectedDate &&
+      data.area === selectedArea &&
+      data.phase === selectedPhase &&
+      selectedSections.includes(data.section),
   );
 
+  // Handle section selection for filtering
   const handleSectionChange = (e) => {
     const { value, checked } = e.target;
     setSelectedSections((prevSelectedSections) =>
@@ -86,36 +233,78 @@ function JobStatusChart() {
     );
   };
 
+  // Get unique dates for the date filter
+  const uniqueDates = Array.from(new Set(initialData.map((data) => data.date)));
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Job Status per Section</CardTitle>
         <CardDescription>
           Display the number of completed and ongoing jobs per section
-          (Mechanical, Electrical, Instrumentation, Operations).
+          (Mechanical, Electrical, Instrumentation, Operations) with filters for
+          date, area, and phase.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {/* Date Filter */}
-        <div className="flex gap-4 mb-4">
-          <Select
-            value={selectedDate}
-            onValueChange={(value) => setSelectedDate(value)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select Date" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="2024-01-10">2024-01-10</SelectItem>
-              <SelectItem value="2024-01-11">2024-01-11</SelectItem>
-              <SelectItem value="2024-01-12">2024-01-12</SelectItem>
-              <SelectItem value="2024-01-13">2024-01-13</SelectItem>
-            </SelectContent>
-          </Select>
+        {/* Filters */}
+        <div className="flex flex-wrap gap-4 mb-4">
+          {/* Date Filter */}
+          <div>
+            <Select
+              value={selectedDate}
+              onValueChange={(value) => setSelectedDate(value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select Date" />
+              </SelectTrigger>
+              <SelectContent>
+                {uniqueDates.map((date, index) => (
+                  <SelectItem key={index} value={date}>
+                    {date}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Area Filter */}
+          <div>
+            <Select
+              value={selectedArea}
+              onValueChange={(value) => setSelectedArea(value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select Area" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Area 1">Area 1</SelectItem>
+                <SelectItem value="Area 2">Area 2</SelectItem>
+                <SelectItem value="Area 3">Area 3</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Phase Filter */}
+          <div>
+            <Select
+              value={selectedPhase}
+              onValueChange={(value) => setSelectedPhase(value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select Phase" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Phase 1">Phase 1</SelectItem>
+                <SelectItem value="Phase 2">Phase 2</SelectItem>
+                <SelectItem value="Phase 3">Phase 3</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         {/* Department Filter */}
-        <div className="flex gap-4 mb-4">
+        <div className="flex flex-wrap gap-4 mb-4">
           <label>
             <input
               type="checkbox"
@@ -165,16 +354,15 @@ function JobStatusChart() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="completed" fill="#1E90FF" name="Completed Jobs" />
-            <Bar dataKey="ongoing" fill="#32CD32" name="Ongoing Jobs" />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  labelFormatter={(value) => `Section: ${value}`}
-                />
-              }
-              cursor={false}
-              defaultIndex={0}
+            <Bar
+              dataKey="completed"
+              fill={chartConfig.completed.color}
+              name={chartConfig.completed.label}
+            />
+            <Bar
+              dataKey="ongoing"
+              fill={chartConfig.ongoing.color}
+              name={chartConfig.ongoing.label}
             />
           </BarChart>
         </ChartContainer>

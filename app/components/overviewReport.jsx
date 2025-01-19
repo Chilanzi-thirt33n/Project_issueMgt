@@ -54,10 +54,6 @@ const OverviewTable = ({ data }) => {
   return (
     <div className="w-full h-full">
       <Card className="w-full h-full p-4">
-        <CardHeader>
-          <h2 className="text-2xl font-bold">{title}</h2>
-          <p className="text-sm">{description}</p>
-        </CardHeader>
         <table className="w-full table-auto border-collapse space-y-3">
           <thead className="bg-gray-700 text-white rounded-md p-2">
             <tr className="text-left grid grid-cols-6">

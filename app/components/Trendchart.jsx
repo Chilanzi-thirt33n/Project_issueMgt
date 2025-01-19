@@ -21,12 +21,15 @@ import {
 
 // Sample chart data for issues added each month
 const sampleChartData = [
-  { month: "January", issues: 120 },
-  { month: "February", issues: 150 },
-  { month: "March", issues: 180 },
-  { month: "April", issues: 200 },
-  { month: "May", issues: 210 },
-  { month: "June", issues: 250 },
+  { month: "January", issues: 12 },
+  { month: "February", issues: 50 },
+  { month: "March", issues: 18 },
+  { month: "April", issues: 20 },
+  { month: "May", issues: 10 },
+  { month: "June", issues: 25 },
+  { month: "July", issues: 25 },
+  { month: "August", issues: 10 },
+  { month: "September", issues: 18 },
 ];
 
 export function IssuesChartComponent() {

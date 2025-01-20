@@ -78,6 +78,9 @@ function AddButton() {
           assigned_to: formData.assigned_to,
           reported_by: formData.reported_by,
           contact_number: formData.contact_number,
+          area: formData.area,
+          phase: formData.phase,
+          section: formData.section,
           comment: formData.comment,
         };
 
@@ -88,15 +91,17 @@ function AddButton() {
         });
 
         if (response.status === 200) {
-          alert("Data added and email sent successfully!");
+          alert(
+            "ISSUE( DEFECT ) succesfully added ! - EMAIL and SMS sent successfully!",
+          );
         } else {
           alert(
-            `Data added, but email failed: ${response.data.error || "Unknown error"}`,
+            `DATA added, but EMAIL and SMS failed: ${response.data.error || "Unknown error"}`,
           );
         }
       } catch (emailError) {
         console.error("Email sending error:", emailError);
-        alert(`Data added, but email sending failed: ${emailError.message}`);
+        alert(`Data added, but EMAIL sending failed: ${emailError.message}`);
       }
       // test email sending
       setFormData({
@@ -147,7 +152,7 @@ function AddButton() {
       {/* Overlay Form when showForm is true */}
       {showForm && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-80 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg w-2/3 text-black relative">
+          <div className="bg-white p-6 rounded-lg max-h-fit w-2/4 text-black relative">
             {/* Close Button (X) positioned at top-right corner of the form */}
             <button
               onClick={toggleForm}
@@ -157,9 +162,9 @@ function AddButton() {
             </button>
 
             {/* Form for adding data */}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               {/* Two columns grid layout */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-2">
                 {/* Left Column Inputs */}
                 <div>
                   <label htmlFor="area" className="block text-lg mb-2">
@@ -174,9 +179,15 @@ function AddButton() {
                     required
                   >
                     <option value="">Select Area</option>
-                    <option value="Area 1">Area 1</option>
-                    <option value="Area 2">Area 2</option>
-                    <option value="Area 3">Area 3</option>
+                    <option value="MILLING">MILLING</option>
+                    <option value="FLOATATION">FLOATATION</option>
+                    <option value="REAGENT">REAGENT</option>
+                    <option value="CRUSHING">CRUSHING</option>
+                    <option value="HPGR">HPGR</option>
+                    <option value="DEWATERING">DEWATERING</option>
+                    <option value="FILTRATION">FILTRATION</option>
+                    <option value="BAGGING">BAGGING</option>
+                    <option value="DEWATERING">DEWATERING</option>
                   </select>
                 </div>
 

@@ -11,6 +11,9 @@ export async function POST(req) {
       priority,
       assigned_to,
       reported_by,
+      phase,
+      area,
+      section,
       contact_number,
       comment,
     } = body;
@@ -34,12 +37,15 @@ export async function POST(req) {
 
         A new issue has been added to the defect logger dashboard:
 
-        - **Issue**: ${issue}
-        - **Priority**: ${priority}
-        - **Assigned To**: ${assigned_to}
-        - **Reported By**: ${reported_by}
-        - **Contact Number**: ${contact_number}
-        - **Comments**: ${comment}
+        - ISSUE : ${issue}
+        - PRIORITY : ${priority}
+        - ASSIGNED TO : ${assigned_to}
+        - REPORTED BY : ${reported_by}
+        - CONTACTS : ${contact_number}
+        - COMMENT : ${comment}
+        - PHASE : ${phase}
+        - AREA : ${area}
+        - SECTION : ${section}
 
         Best regards,
         Your Techvalley Team

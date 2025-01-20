@@ -188,7 +188,7 @@ const handleSubmit = async (e) => {
       {/* Modal */}
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg min-w-[60%] max-w-3xl relative">
+          <div className="bg-white p-6 rounded-lg shadow-lg min-w-[50%] max-h-fit relative">
             {/* Close button */}
             <button
               onClick={() => setIsOpen(false)}
@@ -202,7 +202,7 @@ const handleSubmit = async (e) => {
               <p>Loading...</p>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-stretch items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 justify-stretch items-center">
                   {/* Title */}
                   <div>
                     <label className="block text-lg mb-2">Issue Title</label>
@@ -226,9 +226,15 @@ const handleSubmit = async (e) => {
                       required
                     >
                       <option value="">Select Area</option>
-                      <option value="Area 1">Area 1</option>
-                      <option value="Area 2">Area 2</option>
-                      <option value="Area 3">Area 3</option>
+                      <option value="MILLING">MILLING</option>
+                      <option value="FLOATATION">FLOATATION</option>
+                      <option value="REAGENT">REAGENT</option>
+                      <option value="CRUSHING">CRUSHING</option>
+                      <option value="HPGR">HPGR</option>
+                      <option value="DEWATERING">DEWATERING</option>
+                      <option value="FILTRATION">FILTRATION</option>
+                      <option value="BAGGING">BAGGING</option>
+                      <option value="DEWATERING">DEWATERING</option>
                     </select>
                   </div>
 

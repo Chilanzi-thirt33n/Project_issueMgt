@@ -12,17 +12,19 @@ import Link from "next/link";
 
 const WelcomeCard = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-[90%] md:w-3/4 bg-white shadow-lg rounded-lg">
+    <div className="flex w-full items-center justify-center min-h-screen">
+      <Card className="w-[25%]  bg-white shadow-lg rounded-lg">
         <CardHeader>
-          <CardTitle className="text-center text-2xl font-bold text-blue-600">
-            Welcome!
+          <CardTitle>
+            <h1 className="text-center text-2xl font-bold text-blue-600">
+              Defects Logger
+            </h1>
+            <p className="text-center text-gray-700">
+              Welcome to the Defects Logger v0.0.1
+            </p>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <CardDescription className="text-center text-lg text-gray-700">
-            Welcome to the Defects Logger v0.0.1
-          </CardDescription>
           <div className="flex justify-center mt-4">
             <Link
               href="/dashboard"

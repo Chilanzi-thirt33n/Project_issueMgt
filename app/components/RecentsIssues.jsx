@@ -164,7 +164,9 @@ const RecentsIssues = () => {
                   <td className="px-4 py-2 border-b font-bold text-xm">
                     {issue.issue_name}
                   </td>
-                  <td className="px-4 py-2 border-b text-xs">{issue.id}</td>
+                  <td className="px-4 py-2 border-b text-xs">
+                    {issue.issue_id}
+                  </td>
                   <td
                     className={`px-4 py-2 border-b font-semibold text-xs ${
                       issue.status === "YTS"

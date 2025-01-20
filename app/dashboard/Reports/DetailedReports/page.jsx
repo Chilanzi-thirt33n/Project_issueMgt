@@ -238,7 +238,7 @@ function QuarterlyReport() {
             <div className="text-2xl font-bold text-gray-900 mb-4">
               {phase.phase}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="flex flex-row flex-wrap gap-2 justify-start items-baseline">
               {phase.tables.map((table, tableIndex) => (
                 <div
                   key={tableIndex}

@@ -24,7 +24,6 @@ const IssueChart = () => {
   const [chartData, setChartData] = useState([]);
   useEffect(() => {
     const fetchIssuesCounts = async () => {
-      // Call the SQL function
       const { data, error } = await supabase.rpc("get_issues_count");
 
       if (error) {

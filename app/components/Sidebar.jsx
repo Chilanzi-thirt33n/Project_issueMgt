@@ -89,7 +89,7 @@ const Sidebar = () => {
                       pathname === "/dashboard/Reports",
                     )}
                   >
-                    <span>Tables</span>
+                    <span>Issue report</span>
                   </Link>
                 </li>
                 <li>
@@ -99,7 +99,17 @@ const Sidebar = () => {
                       pathname === "/dashboard/Reports/Charts",
                     )}
                   >
-                    <span>Trends</span>
+                    <span>Trend report</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard/Reports/DetailedReports"
+                    className={dropdownLinkStyle(
+                      pathname === "/dashboard/Reports/DetailedReports",
+                    )}
+                  >
+                    <span>Detailed report</span>
                   </Link>
                 </li>
               </ul>

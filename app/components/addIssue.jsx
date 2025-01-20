@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client
-//import axios from "axios";
+import axios from "axios";
 
 function AddButton() {
   // State to toggle form visibility
@@ -69,6 +69,36 @@ function AddButton() {
 
       if (error) throw error;
 
+      // Send email after successful data insertion
+      try {
+        const emailData = {
+          to_name: formData.assigned_to,
+          issue: formData.issue,
+          priority: formData.priority,
+          assigned_to: formData.assigned_to,
+          reported_by: formData.reported_by,
+          contact_number: formData.contact_number,
+          comment: formData.comment,
+        };
+
+        const response = await axios.post("/api/send-email", emailData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.status === 200) {
+          alert("Data added and email sent successfully!");
+        } else {
+          alert(
+            `Data added, but email failed: ${response.data.error || "Unknown error"}`,
+          );
+        }
+      } catch (emailError) {
+        console.error("Email sending error:", emailError);
+        alert(`Data added, but email sending failed: ${emailError.message}`);
+      }
+      // test email sending
       alert("Data added successfully!");
       setFormData({
         area: "",

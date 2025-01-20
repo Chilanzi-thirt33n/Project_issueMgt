@@ -363,7 +363,9 @@ const handleSubmit = async (e) => {
 
                   {/* Phone Number */}
                   <div>
-                    <label className="block text-lg mb-2">Phone Number</label>
+                    <label className="block text-lg mb-2">
+                      Assigned Contact
+                    </label>
                     <input
                       type="text"
                       name="contact_number"

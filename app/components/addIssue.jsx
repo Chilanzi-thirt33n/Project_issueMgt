@@ -99,7 +99,6 @@ function AddButton() {
         alert(`Data added, but email sending failed: ${emailError.message}`);
       }
       // test email sending
-      alert("Data added successfully!");
       setFormData({
         area: "",
         phase: "",
@@ -233,7 +232,7 @@ function AddButton() {
                     value={formData.issue}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
-                    placeholder="Enter issue"
+                    placeholder="Defect(Issue) detail"
                     required
                   />
                 </div>
@@ -292,7 +291,7 @@ function AddButton() {
                     value={formData.reported_by}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
-                    placeholder="Enter name"
+                    placeholder="John Do"
                     required
                   />
                 </div>
@@ -311,7 +310,7 @@ function AddButton() {
                     value={formData.contact_number}
                     onChange={handleChange}
                     className="px-3 py-2 border rounded w-full"
-                    placeholder="Enter contact number"
+                    placeholder="+(XXX) XXX XXX XXX or email@example.com"
                     required
                   />
                 </div>
@@ -349,7 +348,7 @@ function AddButton() {
                   onChange={handleChange}
                   className="px-3 py-2 border rounded w-full"
                   rows="4"
-                  placeholder="Additional comments"
+                  placeholder="Additional comments on the Defect(issue)"
                 />
               </div>
 

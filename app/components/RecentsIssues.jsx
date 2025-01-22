@@ -40,31 +40,22 @@ const RecentsIssues = () => {
     try {
       // Fetch data from Supabase
       const { data, error } = await supabase
-        .from("recent_activity") // Replace 'activity db' with your table name
-        .select("*"); // Fetch all columns (you can customize columns if needed)
+        .from("recent_activity") // Replace 'recent_activity' with your table name
+        .select("*");
 
       if (error) throw error;
 
-      console.log("Fetched Data:", data); // Log fetched data for verification
-      setIssues(data); // Update the `issues` state with the fetched data
+      console.log("Fetched Data:", data);
+      setIssues(data); // Update the state with fetched data
     } catch (error) {
       console.error("Error fetching data:", error);
-      setError(error.message); // Set error message
+      setError(error.message); // Handle any error
     }
   };
 
   useEffect(() => {
-    // Fetch data immediately
     fetchIssuesFromAPI();
-
-    // Set an interval to fetch data every 5 seconds
-    const interval = setInterval(() => {
-      fetchIssuesFromAPI();
-    }, 5000);
-
-    // Clear the interval when the component unmounts
-    return () => clearInterval(interval);
-  }, []); // Empty dependency array means this will only run once when the component mounts will need to add web socket feature for live data
+  }, []); // This runs once when the component mounts
 
   // this is sorting and pagination logic
   const [currentPage, setCurrentPage] = useState(1);
@@ -197,7 +188,19 @@ const RecentsIssues = () => {
                     {issue.comment}
                   </td>
                   <td className="px-4 py-2 border-b text-xs font-medium">
-                    {new Date(issue.activity_timestamp).toLocaleTimeString()}
+                    {new Date(issue.activity_timestamp).toLocaleString(
+                      "en-US",
+                      {
+                        weekday: "short", // Full name of the day (e.g., "Monday")
+                        year: "numeric", // Full year (e.g., 2025)
+                        month: "short", // Full month name (e.g., "January")
+                        day: "numeric", // Day of the month (e.g., 22)
+                        hour: "numeric", // Hour (12-hour format)
+                        minute: "numeric", // Minute
+                        second: "numeric", // Second
+                        hour12: true, // 12-hour clock (AM/PM)
+                      },
+                    )}
                   </td>
                   <td className="px-4 py-2 border-b text-xs">
                     {issue.reported_by}

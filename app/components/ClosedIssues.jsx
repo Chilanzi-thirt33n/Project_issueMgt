@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { supabase } from "../../lib/supabaseClient"; // Adjust the import according to your project structure
-
+import Link from "next/link";
 const dataPerPage = 5;
 
 const OverviewTable = () => {
@@ -112,7 +112,7 @@ const OverviewTable = () => {
               <tr>
                 <td
                   colSpan="7"
-                  className="flex justify-center items-center text-center py-4 text-xl font-bold min-h-[300px]"
+                  className="flex justify-center items-center text-center py-4 text-sm font-bold min-h-[300px]"
                 >
                   No issues available
                 </td>
@@ -124,7 +124,13 @@ const OverviewTable = () => {
                   className="hover:bg-gray-100 cursor-pointer grid grid-cols-7"
                 >
                   <td className="px-4 py-2 border-b font-bold text-sm">
-                    {item.issue || "No Issue"}
+                    <Link
+                      className="hover:text-blue-400 hover:underline"
+                      href={`/dashboard/IssueManagment/${item.id}`}
+                    >
+                      {" "}
+                      {item.issue || "No Issue"}
+                    </Link>
                   </td>
                   <td className="px-4 py-2 border-b">{item.area}</td>
                   <td className="px-4 py-2 border-b">{item.phase}</td>

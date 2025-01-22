@@ -112,6 +112,16 @@ const Sidebar = () => {
                     <span>Detailed report</span>
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/dashboard/Reports/AdminReports"
+                    className={dropdownLinkStyle(
+                      pathname === "/dashboard/Reports/AdminReports",
+                    )}
+                  >
+                    <span>Admin report</span>
+                  </Link>
+                </li>
               </ul>
             )}
           </li>

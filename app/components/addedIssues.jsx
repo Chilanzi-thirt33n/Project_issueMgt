@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
-import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
-// import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
+import { supabase } from "../../lib/supabaseClient"; // Make sure to correctly set up supabaseClient
 import Link from "next/link";
 
 const issuesPerPage = 6;
@@ -14,78 +13,84 @@ const AddedIssues = () => {
   const [activeSortField, setActiveSortField] = useState("");
 
   // Fetch issues from Supabase
-  //this is what you should comment out to put tech valleys end point
-  /*
-    const fetchIssuesFromAPI = async () => {
+  useEffect(() => {
+    const fetchInitialData = async () => {
       try {
-        // Replace with your Supabase API endpoint and authorization key
-        const response = await axios.get("https://your-supabase-api-endpoint/issues", {
-          headers: {
-            apiKey: "your-supabase-api-key", // Replace with your Supabase API key
-            Authorization: `Bearer your-supabase-auth-token`, // Replace with your Bearer token if needed
-          },
-        });
+        const { data, error } = await supabase
+          .from("issues")
+          .select("*")
+          .in("status", ["YTS", "Ongoing"]); // Fetch initial issues
 
-        const data = response.data;
-        console.log("Fetched Data:", data); // Log fetched data for verification
-        setIssues(data); // Update the `issues` state with the fetched data
+        if (error) throw error;
+        setIssues(data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setError(error.message); // Set error message
+        setError(error.message);
       }
     };
-    */
 
-  //this is for my supabase comment this section when you link to tech vally db
-  const fetchIssuesFromAPI = async () => {
-    try {
-      // Fetch data from Supabase
-      const { data, error } = await supabase
-        .from("issues") // Replace 'issues' with your table name
-        .select("*"); // Fetch all columns (you can customize columns if needed)
+    fetchInitialData();
 
-      if (error) throw error;
+    // Subscribe to real-time updates from Supabase
+    const subscription = supabase
+      .channel("realtime:issues")
+      .on(
+        "postgres_changes",
+        {
+          event: "*", // Listen for any changes (INSERT, UPDATE, DELETE)
+          schema: "public",
+          table: "issues",
+        },
+        (payload) => {
+          console.log("Real-time update:", payload);
+          handleRealTimeUpdate(payload);
+        },
+      )
+      .subscribe();
 
-      console.log("Fetched Data:", data); // Log fetched data for verification
-      setIssues(data); // Update the `issues` state with the fetched data
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setError(error.message); // Set error message
+    // Cleanup the subscription when the component unmounts
+    return () => {
+      supabase.removeChannel(subscription);
+    };
+  }, []);
+
+  const handleRealTimeUpdate = (payload) => {
+    const { eventType, new: newIssue, old: oldIssue } = payload;
+
+    switch (eventType) {
+      case "INSERT":
+        setIssues((prev) => [...prev, newIssue]);
+        break;
+      case "UPDATE":
+        setIssues((prev) =>
+          prev.map((issue) =>
+            issue.id === newIssue.id ? { ...issue, ...newIssue } : issue,
+          ),
+        );
+        break;
+      case "DELETE":
+        setIssues((prev) => prev.filter((issue) => issue.id !== oldIssue.id));
+        break;
+      default:
+        console.warn("Unhandled real-time event:", payload);
     }
   };
 
-  useEffect(() => {
-    // Fetch data immediately
-    fetchIssuesFromAPI();
-
-    // Set an interval to fetch data every 5 seconds
-    const interval = setInterval(() => {
-      fetchIssuesFromAPI();
-    }, 5000);
-
-    // Clear the interval when the component unmounts
-    return () => clearInterval(interval);
-  }, []); // Empty dependency array means this will only run once when the component mounts will need to add web socket feature for live data
-
-  // Sort function
   const handleSort = (field) => {
     const sortedIssues = [...issues].sort((a, b) => {
       if (field === "date") {
-        // Handle sorting by date, as before
         return sortOrder === "asc"
           ? new Date(a.created_at) - new Date(b.created_at)
           : new Date(b.created_at) - new Date(a.created_at);
       } else if (field === "name") {
-        // Ensure the issue.name is being accessed properly
-        const nameA = a.issue || ""; // Access 'issue.issue' field for name
-        const nameB = b.issue || ""; // Access 'issue.issue' field for name
+        const nameA = a.issue || "";
+        const nameB = b.issue || "";
         return sortOrder === "asc"
           ? nameA.localeCompare(nameB)
           : nameB.localeCompare(nameA);
       } else {
-        // Handle other fields that are not "date" or "name"
-        const valueA = a[field] || ""; // Fallback to "" in case of null or undefined
-        const valueB = b[field] || ""; // Fallback to "" in case of null or undefined
+        const valueA = a[field] || "";
+        const valueB = b[field] || "";
         return sortOrder === "asc"
           ? valueA.localeCompare(valueB)
           : valueB.localeCompare(valueA);
@@ -94,7 +99,7 @@ const AddedIssues = () => {
 
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     setActiveSortField(field);
-    setIssues(sortedIssues); // Update the sorted issues
+    setIssues(sortedIssues);
   };
 
   const startIndex = (currentPage - 1) * issuesPerPage;

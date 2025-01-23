@@ -18,7 +18,7 @@ const Admin = () => {
       <header>
         {" "}
         <h1 className="text-xl">Admin Reports</h1>
-        <p className="text-gray-600">
+        <p className="text-gray-600 mb-5">
           Overview on all important metrics on the defects ( Issues )
         </p>
       </header>
@@ -28,7 +28,7 @@ const Admin = () => {
 
         <div>
           <h2 className="text-lg">Trend Charts</h2>
-          <p className="text-gray-600">trends charts</p>
+          <p className="text-gray-600"></p>
           <div className="grid grid-cols-3 gap-2">
             <TrendChart />
             <CrewChart />
@@ -39,12 +39,12 @@ const Admin = () => {
         <div className="flex flex-col gap-2">
           <div>
             <h2 className="text-lg">Active Issues</h2>
-            <p className="text-gray-600">Active Issues</p>
+            <p className="text-gray-600"></p>
             <ActiveIssues />
           </div>
           <div>
             <h2 className="text-lg">Closed Issues</h2>
-            <p className="text-gray-600">closed Issues</p>
+            <p className="text-gray-600"></p>
             <ClosedIssues />
           </div>
         </div>

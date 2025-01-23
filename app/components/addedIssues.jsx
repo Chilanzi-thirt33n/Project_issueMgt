@@ -202,12 +202,7 @@ const AddedIssues = () => {
                   className="w-full hover:bg-gray-100 cursor-pointer grid grid-cols-8 text-xs justify-evenly"
                 >
                   <td className="px-4 py-2 border-b font-bold text-xs">
-                    <Link
-                      className="hover:text-blue-400 hover:underline"
-                      href={`/dashboard/IssueManagment/${issue.id}`}
-                    >
-                      {issue.issue}
-                    </Link>
+                    {issue.issue}
                   </td>
                   <td className="px-4 py-2 border-b text-xm">{issue.id}</td>
                   <td className="px-4 py-2 border-b text-xm">
@@ -225,7 +220,13 @@ const AddedIssues = () => {
                     </h3>
                     <div className="w-full bg-gray-200 rounded-full">
                       <div
-                        className="h-6 bg-green-500 rounded-full"
+                        className={`h-6 rounded-full ${
+                          issue.progress <= 50
+                            ? "bg-red-500"
+                            : issue.progress <= 75
+                              ? "bg-yellow-500"
+                              : "bg-green-500"
+                        }`}
                         style={{ width: `${issue.progress}%` }}
                       ></div>
                     </div>
@@ -245,8 +246,14 @@ const AddedIssues = () => {
                         ? "Ongoing"
                         : "Closed"}
                   </td>
-                  <td className="px-4 py-2 border-b text-xm">
+                  <td className="px-4 py-2 border-b text-xm flex flex-col gap-2">
                     <UpdateButton issue_id={issue.id} onUpdate={handleUpdate} />
+                    <Link
+                      className="text-white bg-green-500 px-8 py-2 text-sm text-center rounded-md hover:bg-gray-700"
+                      href={`/dashboard/IssueManagment/${issue.id}`}
+                    >
+                      View issue
+                    </Link>
                   </td>
                 </tr>
               ))

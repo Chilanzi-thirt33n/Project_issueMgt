@@ -180,7 +180,7 @@ const handleSubmit = async (e) => {
       {/* Button to open the modal */}
       <button
         onClick={handleOpen}
-        className="text-white bg-blue-500 px-8 py-2 text-xl rounded-md hover:bg-gray-700"
+        className="text-white bg-blue-500 px-8 py-2 text-sm rounded-md hover:bg-gray-700"
       >
         Update Issue
       </button>

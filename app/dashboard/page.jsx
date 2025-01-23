@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
 // import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
+import DownloadButton from "../components/ButtonProp";
 
 export default function Overview() {
   const [priorityData, setPriorityData] = useState([]);
@@ -90,6 +91,13 @@ export default function Overview() {
       >
         <RecentActivity />
       </Suspense>
+      <div className="w-full flex flex-row justify-end items-center">
+        <DownloadButton
+          name="Download Pdf"
+          link="#"
+          className="bg-green-500 hover:bg-green-700"
+        />
+      </div>
     </div>
   );
 }

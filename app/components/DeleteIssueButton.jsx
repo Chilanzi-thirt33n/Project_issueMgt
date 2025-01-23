@@ -46,7 +46,7 @@ const DeleteIssueButton = ({ issue_id: id, onDelete }) => {
       {/* Button to open the confirmation modal */}
       <button
         onClick={() => setIsOpen(true)}
-        className=" bg-red-600 px-8 py-2 text-xl rounded-md hover:bg-gray-700 text-white"
+        className=" bg-red-600 px-8 py-2 text-sm rounded-md hover:bg-gray-700 text-white"
       >
         Delete Issue
       </button>

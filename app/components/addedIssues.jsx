@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { supabase } from "../../lib/supabaseClient"; // Make sure to correctly set up supabaseClient
 import Link from "next/link";
+import UpdateButton from "../components/UpdateIssueButton";
 
 const issuesPerPage = 6;
 
@@ -54,28 +55,62 @@ const AddedIssues = () => {
     };
   }, []);
 
+  // Handle real-time updates
   const handleRealTimeUpdate = (payload) => {
     const { eventType, new: newIssue, old: oldIssue } = payload;
 
-    switch (eventType) {
-      case "INSERT":
-        setIssues((prev) => [...prev, newIssue]);
-        break;
-      case "UPDATE":
-        setIssues((prev) =>
-          prev.map((issue) =>
-            issue.id === newIssue.id ? { ...issue, ...newIssue } : issue,
-          ),
-        );
-        break;
-      case "DELETE":
-        setIssues((prev) => prev.filter((issue) => issue.id !== oldIssue.id));
-        break;
-      default:
-        console.warn("Unhandled real-time event:", payload);
+    // Check if newIssue has necessary fields before updating
+    if (newIssue && newIssue.id) {
+      console.log("New Issue on Update:", newIssue);
+
+      switch (eventType) {
+        case "INSERT":
+          setIssues((prev) =>
+            Array.isArray(prev) ? [...prev, newIssue] : [newIssue],
+          );
+          break;
+        case "UPDATE":
+          setIssues(
+            (prev) =>
+              Array.isArray(prev)
+                ? prev.map((issue) =>
+                    issue.id === newIssue.id
+                      ? { ...issue, ...newIssue }
+                      : issue,
+                  )
+                : [newIssue], // In case the prev state is not an array
+          );
+          break;
+        case "DELETE":
+          setIssues((prev) =>
+            Array.isArray(prev)
+              ? prev.filter((issue) => issue.id !== oldIssue.id)
+              : [],
+          );
+          break;
+        default:
+          console.warn("Unhandled real-time event:", payload);
+      }
+    } else {
+      console.warn("Invalid update data:", payload); // Warn if newIssue does not have valid data
     }
   };
 
+  // Handle update of issue data manually
+  const handleUpdate = (updatedIssue) => {
+    setIssues(
+      (prev) =>
+        Array.isArray(prev)
+          ? prev.map((issue) =>
+              issue.id === updatedIssue.id
+                ? { ...issue, ...updatedIssue }
+                : issue,
+            )
+          : [updatedIssue], // In case prev is not an array
+    );
+  };
+
+  // Handle sorting of issues
   const handleSort = (field) => {
     const sortedIssues = [...issues].sort((a, b) => {
       if (field === "date") {
@@ -102,6 +137,7 @@ const AddedIssues = () => {
     setIssues(sortedIssues);
   };
 
+  // Handle pagination
   const startIndex = (currentPage - 1) * issuesPerPage;
   const endIndex = startIndex + issuesPerPage;
   const currentIssues = issues.slice(startIndex, endIndex);
@@ -166,7 +202,12 @@ const AddedIssues = () => {
                   className="w-full hover:bg-gray-100 cursor-pointer grid grid-cols-8 text-xs justify-evenly"
                 >
                   <td className="px-4 py-2 border-b font-bold text-xs">
-                    {issue.issue}
+                    <Link
+                      className="hover:text-blue-400 hover:underline"
+                      href={`/dashboard/IssueManagment/${issue.id}`}
+                    >
+                      {issue.issue}
+                    </Link>
                   </td>
                   <td className="px-4 py-2 border-b text-xm">{issue.id}</td>
                   <td className="px-4 py-2 border-b text-xm">
@@ -179,10 +220,10 @@ const AddedIssues = () => {
                     {new Date(issue.created_at).toISOString().split("T")[0]}
                   </td>
                   <td className="px-4 py-2 border-b text-xm">
-                    <h3 className="text-xm font-bold text-end ">
+                    <h3 className="text-xm font-bold text-end">
                       {issue.progress}%
                     </h3>
-                    <div className="w-full bg-gray-200 rounded-full ">
+                    <div className="w-full bg-gray-200 rounded-full">
                       <div
                         className="h-6 bg-green-500 rounded-full"
                         style={{ width: `${issue.progress}%` }}
@@ -205,40 +246,33 @@ const AddedIssues = () => {
                         : "Closed"}
                   </td>
                   <td className="px-4 py-2 border-b text-xm">
-                    <Link
-                      href={`/dashboard/IssueManagment/${issue.id}`}
-                      className="text-white hover:bg-gray-700 bg-blue-500 py-2 px-8 rounded-md"
-                    >
-                      View
-                    </Link>
+                    <UpdateButton issue_id={issue.id} onUpdate={handleUpdate} />
                   </td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
-
-        {/* Pagination Controls */}
-        <div className="mt-4 flex justify-between items-center">
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-blue-500 hover:text-white transition"
-          >
-            Previous
-          </button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-blue-500 hover:text-white transition"
-          >
-            Next
-          </button>
-        </div>
       </Card>
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          className="px-4 py-2 bg-gray-300 rounded-md"
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="px-4 py-2">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          className="px-4 py-2 bg-gray-300 rounded-md"
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

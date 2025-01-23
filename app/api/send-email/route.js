@@ -30,7 +30,7 @@ export async function POST(req) {
     // Email options
     const mailOptions = {
       from: process.env.EMAIL_USER, // Your email address
-      to: "davidchilanzijilliamdark@gmail.com, abelukanga@gmail.com,nattybanny493@gmail.com",
+      to: "davidchilanzijilliamdark@gmail.com, abelukanga@gmail.com,nattybanny493@gmail.com,max@techvalleyzambia.com",
       subject: `New issue reported: ${issue}`,
       text: `
         Hello ${to_name},

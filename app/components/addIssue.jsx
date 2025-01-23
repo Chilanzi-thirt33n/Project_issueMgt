@@ -143,7 +143,7 @@ function AddButton() {
       {/* Button to toggle the form */}
       <button
         onClick={toggleForm}
-        className="px-8 py-2 bg-blue-500 text-white rounded-md flex flex-row gap-4 justify-center items-center font-bold text-xl hover:bg-blue-300 hover:text-gray-950"
+        className="px-8 py-2 bg-blue-500 text-white rounded-md flex flex-row gap-4 justify-center items-center font-bold text-sm hover:bg-blue-300 hover:text-gray-950"
       >
         <p>Add Issue</p>
         <AiOutlinePlus />
@@ -151,7 +151,7 @@ function AddButton() {
 
       {/* Overlay Form when showForm is true */}
       {showForm && (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-80 flex justify-center items-center z-50">
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-80 flex text-sm justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg max-h-fit w-2/4 text-black relative">
             {/* Close Button (X) positioned at top-right corner of the form */}
             <button

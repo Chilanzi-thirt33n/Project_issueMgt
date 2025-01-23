@@ -2,6 +2,7 @@
 import AddIssue from "../../components/addIssue";
 import IssueActive from "../../components/addedIssues";
 import { Suspense } from "react";
+import DownloadButton from "../../components/ButtonProp";
 
 const IssueManagment = () => {
   return (
@@ -24,6 +25,13 @@ const IssueManagment = () => {
         >
           <IssueActive />
         </Suspense>
+        <div className="w-full flex flex-row justify-end items-center">
+          <DownloadButton
+            name="Download Excel"
+            link="#"
+            className="bg-green-500 hover:bg-green-700"
+          />
+        </div>
       </main>
     </div>
   );

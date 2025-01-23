@@ -1,7 +1,65 @@
+"use client";
+
+// this section should be new components that can be made new
+import MonthChart from "../../../components/MonthChart";
+import ActiveIssues from "../../../components/ActiveIssuea";
+import ClosedIssues from "../../../components/ClosedIssues";
+import ClassificationChart from "../../../components/Piechart";
+import BarChart from "../../../components/IssueChart";
+import DepartmentChart from "../../../components/departmentJobsChart";
+import CrewChart from "../../../components/crewChart";
+import DetailedReports from "../../Reports/DetailedReports/page";
+import TrendChart from "../../../components/Trendchart";
+
 const Admin = () => {
   return (
     <div>
-      <h1>Admin Reports</h1>
+      {/*the hader has the title */}
+      <header>
+        {" "}
+        <h1 className="text-xl">Admin Reports</h1>
+        <p className="text-gray-600">
+          Overview on all important metrics on the defects ( Issues )
+        </p>
+      </header>
+      {/*this is te main */}
+      <main className="space-y-10">
+        <MonthChart />
+
+        <div>
+          <h2 className="text-lg">Trend Charts</h2>
+          <p className="text-gray-600">trends charts</p>
+          <div className="grid grid-cols-3 gap-2">
+            <TrendChart />
+            <CrewChart />
+            <BarChart />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <div>
+            <h2 className="text-lg">Active Issues</h2>
+            <p className="text-gray-600">Active Issues</p>
+            <ActiveIssues />
+          </div>
+          <div>
+            <h2 className="text-lg">Closed Issues</h2>
+            <p className="text-gray-600">closed Issues</p>
+            <ClosedIssues />
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-lg">dept Charts</h2>
+          <p className="text-gray-600">Classification and crew Charts</p>
+          <div className="grid grid-cols-2 gap-2">
+            <DepartmentChart />
+            <ClassificationChart />
+          </div>
+        </div>
+
+        <DetailedReports />
+      </main>
     </div>
   );
 };

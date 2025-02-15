@@ -15,7 +15,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client
+import { supabase } from "@/lib/supabaseClient"; // Import your Supabase client
 
 const chartConfig = {
   issues: {

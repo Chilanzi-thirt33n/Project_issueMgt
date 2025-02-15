@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client
+import { supabase } from "@/lib/supabaseClient"; // Import your Supabase client
 import axios from "axios";
 
 function AddButton() {

@@ -1,7 +1,7 @@
 "use client";
 
-import Copyright from "../app/components/CopyRight";
-import Welcome from "../app/components/welcome";
+import Copyright from "../app/components/common/CopyRight";
+import Welcome from "./components/common/welcome";
 
 const CompanyDetails = {
   name: "TechValley",

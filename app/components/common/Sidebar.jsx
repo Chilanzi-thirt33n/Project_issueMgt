@@ -11,6 +11,7 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa"; // Icons from React Icons
+import {LogoutLink} from "@kinde-oss/kinde-auth-nextjs/components";
 
 const Sidebar = () => {
   const pathname = usePathname(); // Get current path for active link highlighting
@@ -129,13 +130,12 @@ const Sidebar = () => {
       </div>
 
       {/* Sign Out */}
-      <Link
-        href="/"
-        className="text-white flex flex-row gap-3 w-full py-2 justify-center items-start rounded-md bg-[#171717] hover:bg-blue-700"
-      >
+      <LogoutLink  className={"text-white flex flex-row gap-3 w-full py-2 justify-center items-start rounded-md bg-[#171717] hover:bg-blue-700"}>
         <FaSignOutAlt size={20} />
         <p>Sign Out</p>
-      </Link>
+      </LogoutLink>
+
+
     </nav>
   );
 };

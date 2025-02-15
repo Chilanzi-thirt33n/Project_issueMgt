@@ -1,20 +1,20 @@
 "use client";
 
 // this section should be new components that can be made new
-import MonthChart from "../../../components/MonthChart";
-import ActiveIssues from "../../../components/ActiveIssuea";
-import ClosedIssues from "../../../components/ClosedIssues";
-import ClassificationChart from "../../../components/Piechart";
-import BarChart from "../../../components/IssueChart";
-import DepartmentChart from "../../../components/departmentJobsChart";
-import CrewChart from "../../../components/crewChart";
+import MonthChart from "../../../components/charts/MonthChart";
+import ActiveIssues from "../../../components/Tables/ActiveIssuea";
+import ClosedIssues from "../../../components/Tables/ClosedIssues";
+import ClassificationChart from "../../../components/charts/Piechart";
+import BarChart from "../../../components/charts/IssueChart";
+import DepartmentChart from "../../../components/charts/departmentJobsChart";
+import CrewChart from "../../../components/charts/crewChart";
 import DetailedReports from "../../Reports/DetailedReports/page";
-import TrendChart from "../../../components/Trendchart";
+import TrendChart from "../../../components/charts/Trendchart";
 
 const Admin = () => {
   return (
     <div>
-      {/*the hader has the title */}
+      {/*the header has the title */}
       <header>
         {" "}
         <h1 className="text-xl">Admin Reports</h1>

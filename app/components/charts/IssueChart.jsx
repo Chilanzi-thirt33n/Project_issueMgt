@@ -2,7 +2,7 @@
 
 import { Bar, BarChart, XAxis, YAxis, Tooltip, LabelList } from "recharts";
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabaseClient"; // Supabase client for personal testing
+import { supabase } from "@/lib/supabaseClient"; // Supabase client for personal testing
 // import axios from "axios"; // Uncomment for endpoints when linked to Tech Valley's DB
 
 import {

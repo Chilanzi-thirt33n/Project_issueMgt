@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import Crumbs from "../components/BreadCrumbs";
-import Sidebar from "../components/Sidebar";
-import Navigation from "../components/Nav";
-import Copyright from "../components/CopyRight";
+import Crumbs from "../components/common/BreadCrumbs";
+import Sidebar from "../components/common/Sidebar";
+import Navigation from "../components/common/Nav";
+import Copyright from "../components/common/CopyRight";
 
 export default function DashboardLayout({ children }) {
   // Dummy user data

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
+import { supabase } from "@/lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
 // import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
 
 // Pagination logic

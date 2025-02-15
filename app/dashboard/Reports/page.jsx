@@ -1,8 +1,8 @@
 "use client";
 
 import { Suspense, useState, useEffect } from "react";
-import Closed from "../../components/ClosedIssues";
-import Active from "../../components/ActiveIssuea";
+import Closed from "../../components/Tables/ClosedIssues";
+import Active from "../../components/Tables/ActiveIssuea";
 
 export default function Reports() {
   return (

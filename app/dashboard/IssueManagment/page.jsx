@@ -1,8 +1,8 @@
 "use client";
-import AddIssue from "../../components/addIssue";
-import IssueActive from "../../components/addedIssues";
+import AddIssue from "../../components/buttons/addIssue";
+import IssueActive from "../../components/Tables/addedIssues";
 import { Suspense } from "react";
-import DownloadButton from "../../components/ButtonProp";
+import DownloadButton from "../../components/buttons/ButtonProp";
 
 const IssueManagment = () => {
   return (

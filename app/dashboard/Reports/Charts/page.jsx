@@ -1,9 +1,9 @@
 "use client";
 
-import CrewChart from "../../../components/crewChart";
-import DepartmentChart from "../../../components/departmentJobsChart";
+import CrewChart from "../../../components/charts/crewChart";
+import DepartmentChart from "../../../components/charts/departmentJobsChart";
 import { Suspense } from "react";
-import Trends from "../../../components/MonthChart";
+import Trends from "../../../components/charts/MonthChart";
 
 export default function Charts() {
   return (

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
-import { supabase } from "../../lib/supabaseClient"; // Make sure to correctly set up supabaseClient
+import { supabase } from "@/lib/supabaseClient"; // Make sure to correctly set up supabaseClient
 import Link from "next/link";
-import UpdateButton from "../components/UpdateIssueButton";
+import UpdateButton from "../buttons/UpdateIssueButton";
 
 const issuesPerPage = 6;
 

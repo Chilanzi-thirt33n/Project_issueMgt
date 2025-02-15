@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personal testing add we can use if we need to present
+import { supabase } from "@/lib/supabaseClient"; // Import your Supabase client for my personal testing add we can use if we need to present
 // import axios from "axios"; // this is axios for endpoints comment it out and comment the above when you link to tech valley's db
 
 const UpdateIssueButton = ({ issue_id, onUpdate }) => {

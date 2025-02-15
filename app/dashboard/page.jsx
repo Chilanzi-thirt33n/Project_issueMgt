@@ -1,14 +1,14 @@
 "use client";
-import IssueChart from "../components/IssueChart";
-import PieChart from "../components/Piechart";
-import PriorityCards from "../components/PriorityOverviewCards";
-import RecentActivity from "../components/RecentsIssues";
-import Trends from "../components/Trendchart";
+import IssueChart from "../components/charts/IssueChart";
+import PieChart from "../components/charts/Piechart";
+import PriorityCards from "../components/charts/PriorityOverviewCards";
+import RecentActivity from "../components/Tables/RecentsIssues";
+import Trends from "../components/charts/Trendchart";
 import { Suspense } from "react";
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
+import { supabase } from "@/lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
 // import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
-import DownloadButton from "../components/ButtonProp";
+import DownloadButton from "../components/buttons/ButtonProp";
 
 export default function Overview() {
   const [priorityData, setPriorityData] = useState([]);

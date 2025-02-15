@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { supabase } from "../../lib/supabaseClient"; // Adjust the import according to your project structure
+import { supabase } from "@/lib/supabaseClient"; // Adjust the import according to your project structure
 import Link from "next/link";
-
 const dataPerPage = 5;
 
 const OverviewTable = () => {
@@ -18,7 +17,7 @@ const OverviewTable = () => {
       const { data, error } = await supabase
         .from("issues") // Replace with your table name
         .select("*")
-        .in("status", ["YTS", "Ongoing"]); // Filter for issues with status "YTS" or "Ongoing"
+        .eq("status", "Closed"); // Filter for issues with status "Closed"
 
       if (error) {
         console.error("Error fetching data:", error);

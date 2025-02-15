@@ -2,10 +2,10 @@
 
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
-import Delete from "../../../components/DeleteIssueButton";
-import Update from "../../../components/UpdateIssueButton";
-import Specification from "../../../components/SpecificationCard";
-import Details from "../../../components/IssueDetails";
+import Delete from "../../../components/buttons/DeleteIssueButton";
+import Update from "../../../components/buttons/UpdateIssueButton";
+import Specification from "../../../components/charts/SpecificationCard";
+import Details from "../../../components/Tables/IssueDetails";
 import { supabase } from "../../../../lib/supabaseClient"; // Import your Supabase client for my personala testing add we can use  if we need to present
 // import axios from "axios"; // this is axio for end points comment it out and comment the abave when you link to tech valleys db
 

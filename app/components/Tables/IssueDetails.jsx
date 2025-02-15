@@ -13,7 +13,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { GiForkKnifeSpoon, GiHotMeal, GiMeal } from "react-icons/gi"; // Added food-related icons
-import Progress from "./ProgressPieChart";
+import Progress from "../charts/ProgressPieChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const IssueDetails = ({ data }) => {

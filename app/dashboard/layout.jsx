@@ -4,6 +4,7 @@ import Crumbs from "../components/common/BreadCrumbs";
 import Sidebar from "../components/common/Sidebar";
 import Navigation from "../components/common/Nav";
 import Copyright from "../components/common/CopyRight";
+import {AuthProvider} from "../AuthProvider";
 
 export default function DashboardLayout({ children }) {
   // Dummy user data
@@ -29,8 +30,9 @@ export default function DashboardLayout({ children }) {
   }, []); // The empty array ensures it runs only once on the first render
 
   return (
-    <html lang="en">
-      <body>
+      <AuthProvider>
+        <html lang="en">
+        <body>
         <div className="grid grid-cols-[20rem,1fr] w-screen h-screen bg-gray-200 gap-1">
           {/* Sidebar */}
           <aside className="h-full w-80 text-white p-2">
@@ -58,7 +60,8 @@ export default function DashboardLayout({ children }) {
             </footer>
           </main>
         </div>
-      </body>
-    </html>
+        </body>
+        </html>
+      </AuthProvider>
   );
 }
